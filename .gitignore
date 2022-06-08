@@ -1,5 +1,7 @@
 dataset/*
 .venv/*
+
 client/node_modules
 client/README.md
 client/.gitignore
+.idea
