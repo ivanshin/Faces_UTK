@@ -1,5 +1,6 @@
 dataset/*
 .venv/*
+api/__pycache__/*
 
 client/*
 .idea
