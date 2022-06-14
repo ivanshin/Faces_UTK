@@ -38,11 +38,12 @@ async def grab_image(file: bytes= File()):
         Example request:
         resp = requests.post(" http://127.0.0.1:8000/api/predictions", files= files)
     """
+
     image = np.array(Image.open(io.BytesIO(file)))
     image = image / 255
+    image = np.resize(image, (200, 200, 3))
     image = image.reshape((1, 200, 200,3))
     #return f'shape: {image.shape}'
-    
 
     predictions = model.predict(image)
     

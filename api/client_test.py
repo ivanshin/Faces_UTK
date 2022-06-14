@@ -6,8 +6,10 @@ import requests
 import matplotlib.pyplot as plt
 
 
+FILEPATH = './model_train/test_2.jpg'
+
 # read image as file
-img = open('./model_train/test.jpg', 'rb')
+img = open( FILEPATH , 'rb')
 files = {'file': ('test_image', img, "image/jpeg")}
 
 # send request
@@ -17,8 +19,7 @@ print(resp.json())
 
 # illustrate results
 resp = json.loads(resp.json())
-pil_img = Image.open('./model_train/test.jpg')
+pil_img = Image.open(FILEPATH)
 plt.imshow(pil_img)
 plt.title(f"AGE: {resp['age']}, GENDER {resp['gender']}, RACE: {resp['race']}")
 plt.show()
-system("pause")
