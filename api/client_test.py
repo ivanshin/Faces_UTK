@@ -6,13 +6,16 @@ import requests
 import matplotlib.pyplot as plt
 
 
+# read image as file
 img = open('./model_train/test.jpg', 'rb')
-
 files = {'file': ('test_image', img, "image/jpeg")}
 
+# send request
 resp = requests.post(" http://127.0.0.1:8000/api/predictions", files= files)
 print(resp.json())
 
+
+# illustrate results
 resp = json.loads(resp.json())
 pil_img = Image.open('./model_train/test.jpg')
 plt.imshow(pil_img)

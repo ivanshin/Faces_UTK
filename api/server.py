@@ -10,23 +10,34 @@ import tensorflow as tf
 import numpy as np
 import io
 
-
+# create app and load model
 service = FastAPI()
 model = tf.keras.models.load_model(r'D:\Projects\Python\Faces_UTK\model_train\trained_model\cnn_v3')
 
 @service.get("/")
 async def read_root():
+    """
+        Check status route
+    """
     return {"body": "Healthy."}
 
 
 @service.get("/api/home")
 async def home_page():
+    """
+        Homepage route
+    """
     return
 
 
 @service.post("/api/predictions")
 async def grab_image(file: bytes= File()):
-    
+    """
+        Function for predicts
+        
+        Example request:
+        resp = requests.post(" http://127.0.0.1:8000/api/predictions", files= files)
+    """
     image = np.array(Image.open(io.BytesIO(file)))
     image = image / 255
     image = image.reshape((1, 200, 200,3))
