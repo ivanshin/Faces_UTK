@@ -1,6 +1,6 @@
 import json
 from urllib import request
-from fastapi import Body, FastAPI, File, UploadFile
+from fastapi import FastAPI, File
 from matplotlib import pyplot as plt
 from PIL import Image
 
@@ -9,7 +9,6 @@ from image_item_class import Image_upload
 import tensorflow as tf
 import numpy as np
 import io
-import uuid
 
 
 service = FastAPI()
@@ -20,12 +19,12 @@ async def read_root():
     return {"body": "Healthy."}
 
 
-@service.get("/home")
+@service.get("/api/home")
 async def home_page():
     return
 
 
-@service.post("/predictions")
+@service.post("/api/predictions")
 async def grab_image(file: bytes= File()):
     
     image = np.array(Image.open(io.BytesIO(file)))
