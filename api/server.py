@@ -10,9 +10,11 @@ import tensorflow as tf
 import numpy as np
 import io
 
+
 # create app and load model
 service = FastAPI()
 model = tf.keras.models.load_model(r'D:\Projects\Python\Faces_UTK\model_train\trained_model\age_model.h5')
+
 
 @service.get("/")
 async def read_root():

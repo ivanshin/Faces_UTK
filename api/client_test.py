@@ -6,7 +6,7 @@ import requests
 import matplotlib.pyplot as plt
 
 
-FILEPATH = './model_train/test3.jpg'
+FILEPATH = './model_train/test_2.jpg'
 
 # read image as file
 img = open( FILEPATH , 'rb')
