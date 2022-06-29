@@ -13,8 +13,8 @@ import io
 
 # create app and load model
 service = FastAPI()
-model = tf.keras.models.load_model(r'D:\Projects\Python\Faces_UTK\model_train\trained_model\age_model.h5')
-
+age_model = tf.keras.models.load_model(r'D:\Projects\Python\Faces_UTK\model_train\trained_model\age_model.h5')
+gender_model = tf.keras.models.load_model(r'D:\Projects\Python\Faces_UTK\model_train\trained_model\gender_model.h5')
 
 @service.get("/")
 async def read_root():
@@ -48,13 +48,20 @@ async def grab_image(file: bytes= File()):
     image = image / 255.0      
     image = tf.expand_dims(image, axis=0)
 
-    predictions = model.predict(image)
-    
-    predictions = np.around(predictions)
+    age_prds = age_model.predict(image)
+    gender_prds = gender_model.predict(image)
+
+    age_prds = np.around(age_prds)
+    gender_prds = np.around(gender_prds)
+    gender = ""
+    if gender_prds[0][0] == 0:
+        gender = 'male'
+    else:
+        gender = 'female'
+
     data = {}
-    data['age'] = str(predictions[0][0])
-    #data['gender'] = str(predictions[0][1])
-    #data['race'] = str(predictions[0][2])
+    data['age'] = str(age_prds[0][0])
+    data['gender'] = gender
     predictions_json = json.dumps(data)
 
     return predictions_json
