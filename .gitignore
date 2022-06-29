@@ -1,5 +1,7 @@
 dataset/*
 .venv/*
+api/
+model_train/
 
 client/node_modules
 client/README.md
