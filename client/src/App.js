@@ -1,5 +1,6 @@
 import classes from './App.module.css';
 import React, {useState} from "react";
+import axios from "axios";
 
 function App() {
   const [isDrag, setDrag] = useState(false)
@@ -16,9 +17,12 @@ function App() {
 
   function onDropHandler(e) {
     e.preventDefault()
-    let files = [...e.dataTransfer.files]
+    let images = [...e.dataTransfer.files]
+    const formData = new FormData()
+    formData.append('img', images[0])
     setDrag(false)
-    console.log(files)
+    axios.post('url', formData)
+    console.log(images)
   }
 
   return (
