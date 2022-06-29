@@ -3,7 +3,6 @@ dataset/*
 api/__pycache__/*
 *.jpg
 
-client/*
 .idea
 client/node_modules
 client/README.md
