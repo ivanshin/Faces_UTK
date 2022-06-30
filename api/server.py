@@ -1,9 +1,10 @@
 import json
+import base64
 from urllib import request
-from fastapi import FastAPI, File
+from fastapi import FastAPI, File, Request
 from matplotlib import pyplot as plt
 from PIL import Image
-
+from fastapi.middleware.cors import CORSMiddleware
 from image_item_class import Image_upload
 
 import tensorflow as tf
@@ -16,6 +17,11 @@ service = FastAPI()
 age_model = tf.keras.models.load_model(r'D:\Projects\Python\Faces_UTK\model_train\trained_model\age_model.h5')
 gender_model = tf.keras.models.load_model(r'D:\Projects\Python\Faces_UTK\model_train\trained_model\gender_model.h5')
 
+service.add_middleware(
+    CORSMiddleware,
+    allow_origins=['*']
+)
+    
 @service.get("/")
 async def read_root():
     """
@@ -33,16 +39,21 @@ async def home_page():
 
 
 @service.post("/api/predictions")
-async def grab_image(file: bytes= File()):
+async def receive_image(request: Request):
     """
         Function for predicts
         
         Example request:
-        resp = requests.post(" http://127.0.0.1:8000/api/predictions", files= files)
+        resp = requests.post("http://127.0.0.1:8000/api/predictions", files= files)
     """ 
 
+    file = await request.form()
+    im_b64 = file['img']
 
-    image = np.array(Image.open(io.BytesIO(file)))
+    image = im_b64.file.read()
+    image = Image.open(io.BytesIO(image))
+    image = np.asarray(image)
+
     image = tf.image.resize(image, [224,224]) 
     image = tf.keras.preprocessing.image.img_to_array(image)
     image = image / 255.0      
