@@ -22,12 +22,18 @@ service.add_middleware(
     allow_origins=['*']
 )
     
-@service.get("/")
+@service.get("/checkstatus")
 async def read_root():
     """
-        Check status route
+        Check status of routes
     """
-    return {"body": "Healthy."}
+
+    url_list = [{"path": route.path, "name": route.name} for route in service.routes]
+
+    if len(url_list) == 7:
+        return "Healthy"
+    else:
+        return "Unhealthy"
 
 
 @service.get("/api/home")
