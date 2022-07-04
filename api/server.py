@@ -1,11 +1,9 @@
 import json
-import base64
-from urllib import request
-from fastapi import FastAPI, File, Request
+import os
+from fastapi import FastAPI, Request
 from matplotlib import pyplot as plt
 from PIL import Image
 from fastapi.middleware.cors import CORSMiddleware
-from image_item_class import Image_upload
 
 import tensorflow as tf
 import numpy as np
@@ -14,14 +12,16 @@ import io
 
 # create app and load model
 service = FastAPI()
-age_model = tf.keras.models.load_model(r'D:\Projects\Python\Faces_UTK\model_train\trained_model\age_model.h5')
-gender_model = tf.keras.models.load_model(r'D:\Projects\Python\Faces_UTK\model_train\trained_model\gender_model.h5')
+age_model = tf.keras.models.load_model(os.path.join('..', 'model_train', 'trained_model', 'age_model.h5'))
+gender_model = tf.keras.models.load_model(os.path.join('..', 'model_train', 'trained_model', 'gender_model.h5'))
+
 
 service.add_middleware(
     CORSMiddleware,
     allow_origins=['*']
 )
-    
+
+
 @service.get("/checkstatus")
 async def read_root():
     """
@@ -30,18 +30,18 @@ async def read_root():
 
     url_list = [{"path": route.path, "name": route.name} for route in service.routes]
 
-    if len(url_list) == 7:
+    if len(url_list) == 6:
         return "Healthy"
     else:
         return "Unhealthy"
 
 
-@service.get("/api/home")
-async def home_page():
-    """
-        Homepage route
-    """
-    return
+# @service.get("/api/home")
+# async def home_page():
+#     """
+#         Homepage route
+#     """
+#     return
 
 
 @service.post("/api/predictions")
