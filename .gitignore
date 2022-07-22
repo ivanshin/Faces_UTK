@@ -1,8 +1,9 @@
 dataset/*
 .venv/*
-api/
-model_train/
+api/__pycache__/*
+*.jpg
 
+.idea
 client/node_modules
 client/README.md
 client/.gitignore
