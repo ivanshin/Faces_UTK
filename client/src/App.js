@@ -15,14 +15,20 @@ function App() {
     setDrag(false)
   }
 
-  function onDropHandler(e) {
+  async function onDropHandler(e) {
     e.preventDefault()
     let images = [...e.dataTransfer.files]
     const formData = new FormData()
     formData.append('img', images[0])
     setDrag(false)
-    axios.post('url', formData)
-    console.log(images)
+
+    const response = await axios({
+      method: 'post',
+      url: 'http://127.0.0.1:8000/api/predictions',
+      data: formData,
+    });
+
+    console.log(response)
   }
 
   return (
@@ -42,7 +48,6 @@ function App() {
             onDragOver={(e) => dragStartHandler(e)}
           >Перетащите изображение, чтобы загрузить его</div>
       }
-
     </div>
   );
 }
