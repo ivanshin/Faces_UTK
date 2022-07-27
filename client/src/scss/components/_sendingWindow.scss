@@ -1,8 +1,10 @@
-.App div {
-  width: 80vw;
-  height: 80vh;
-  border: 5px dashed black;
+.window-container {
+  width: 40vw;
+  height: 40vh;
+  border: 3px dashed black;
   display: flex;
   align-items: center;
   justify-content: center;
+  text-align: center;
+  margin-top:100px;
 }

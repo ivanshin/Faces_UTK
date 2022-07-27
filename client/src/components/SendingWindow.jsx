@@ -34,7 +34,7 @@ const SendingWindow = () => {
     }
 
     return (
-        <React.Fragment>
+        <div className={'window-container'}>
             {isDrag
                 ? <div
                     onDragStart={(e) => dragStartHandler(e)}
@@ -50,7 +50,7 @@ const SendingWindow = () => {
                     onDragOver={(e) => dragStartHandler(e)}
                 >Перетащите изображение, чтобы загрузить его</div>
             }
-        </React.Fragment>
+        </div>
     );
 };
 
