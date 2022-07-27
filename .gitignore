@@ -4,5 +4,4 @@ api/__pycache__/*
 *.jpg
 
 client/node_modules/*
-client/README.md
 .idea
