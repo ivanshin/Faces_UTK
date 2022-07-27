@@ -1,10 +1,9 @@
 import json
-from urllib import request
-from fastapi import FastAPI, File
+import os
+from fastapi import FastAPI, Request
 from matplotlib import pyplot as plt
 from PIL import Image
-
-from image_item_class import Image_upload
+from fastapi.middleware.cors import CORSMiddleware
 
 import tensorflow as tf
 import numpy as np
@@ -13,36 +12,54 @@ import io
 
 # create app and load model
 service = FastAPI()
-age_model = tf.keras.models.load_model(r'D:\Projects\Python\Faces_UTK\model_train\trained_model\age_model.h5')
-gender_model = tf.keras.models.load_model(r'D:\Projects\Python\Faces_UTK\model_train\trained_model\gender_model.h5')
+age_model = tf.keras.models.load_model(os.path.join('..', 'model_train', 'trained_model', 'age_model.h5'))
+gender_model = tf.keras.models.load_model(os.path.join('..', 'model_train', 'trained_model', 'gender_model.h5'))
 
-@service.get("/")
+
+service.add_middleware(
+    CORSMiddleware,
+    allow_origins=['*']
+)
+
+
+@service.get("/checkstatus")
 async def read_root():
     """
-        Check status route
+        Check status of routes
     """
-    return {"body": "Healthy."}
+
+    url_list = [{"path": route.path, "name": route.name} for route in service.routes]
+
+    if len(url_list) == 6:
+        return "Healthy"
+    else:
+        return "Unhealthy"
 
 
-@service.get("/api/home")
-async def home_page():
-    """
-        Homepage route
-    """
-    return
+# @service.get("/api/home")
+# async def home_page():
+#     """
+#         Homepage route
+#     """
+#     return
 
 
 @service.post("/api/predictions")
-async def grab_image(file: bytes= File()):
+async def receive_image(request: Request):
     """
         Function for predicts
         
         Example request:
-        resp = requests.post(" http://127.0.0.1:8000/api/predictions", files= files)
+        resp = requests.post("http://127.0.0.1:8000/api/predictions", files= files)
     """ 
 
+    file = await request.form()
+    im_b64 = file['img']
 
-    image = np.array(Image.open(io.BytesIO(file)))
+    image = im_b64.file.read()
+    image = Image.open(io.BytesIO(image))
+    image = np.asarray(image)
+
     image = tf.image.resize(image, [224,224]) 
     image = tf.keras.preprocessing.image.img_to_array(image)
     image = image / 255.0      

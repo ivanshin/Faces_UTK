@@ -3,9 +3,5 @@ dataset/*
 api/__pycache__/*
 *.jpg
 
+client/node_modules/*
 .idea
-client/node_modules
-client/README.md
-client/.gitignore
-.idea
-
