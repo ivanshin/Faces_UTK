@@ -65,11 +65,18 @@ async def receive_image(request: Request):
 
     gray_img = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
     faces = face_cascade.detectMultiScale(gray_img, 1.1, 4)
+    
+    if len(faces) == 0:
+        return "NO FACE DETECTED"
 
-    for (x, y, w, h) in faces:
-        cv2.rectangle(image, (x, y), (x+w, y+h), (255, 0, 0), 2)
+    x, y, w, h =  faces[0]
+    cv2.rectangle(image, (x, y), (x+w, y+h), (255, 0, 0), 2)
 
-    cv2.imshow('img', image)
+
+    image = Image.fromarray(image)
+    image = image.crop((x, y, x + w, y + h))
+
+    cv2.imshow('image', np.asarray(image))
     cv2.waitKey()
 
     image = tf.image.resize(image, [224,224]) 
