@@ -6,11 +6,12 @@ import requests
 import matplotlib.pyplot as plt
 
 
-FILEPATH = './model_train/test_2.jpg'
+FILEPATH = './model_train/test.jpg'
 
 # read image as file
 img = open( FILEPATH , 'rb')
-files = {'file': ('test_image', img, "image/jpeg")}
+#files = {'file': ('img', img, "image/jpeg")}
+files = {'img': img}
 
 # send request
 resp = requests.post(" http://127.0.0.1:8000/api/predictions", files= files)
