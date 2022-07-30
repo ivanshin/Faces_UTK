@@ -1,0 +1,30 @@
+.slider-container {
+  margin-top:50px;
+  width:80vw;
+}
+
+.slick-slide > div {
+  margin: 0 10px;
+}
+
+.slick-list {
+  margin:0 -10px;
+}
+
+.card {
+  border: 1px solid black;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.card > img {
+  width:100%;
+  height: 100%;
+  object-fit: cover;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+
