@@ -18,12 +18,14 @@ gender_model = tf.keras.models.load_model(os.path.join('..', 'model_train', 'tra
 face_cascade = cv2.CascadeClassifier(os.path.join('..', 'model_train', 'trained_model', 'haarcascade_frontalface_default.xml'))
 
 
+# add CORS middleware
 service.add_middleware(
     CORSMiddleware,
     allow_origins=['*']
 )
 
 
+# status route
 @service.get("/checkstatus")
 async def read_root():
     """
@@ -38,20 +40,16 @@ async def read_root():
         return "Unhealthy"
 
 
-# @service.get("/api/home")
-# async def home_page():
-#     """
-#         Homepage route
-#     """
-#     return
-
-
+# main predictions route
 @service.post("/api/predictions")
 async def receive_image(request: Request):
     """
         Function for predicts
         
         Example request:
+
+        img = open( FILEPATH , 'rb')
+        files = {'img': img}
         resp = requests.post("http://127.0.0.1:8000/api/predictions", files= files)
     """ 
 
