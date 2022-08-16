@@ -1,12 +1,19 @@
 import React from 'react';
 import Slider from "react-slick"
 import axios from "axios";
-import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import ArrowRight from "../UI/svg/ArrowRight";
-import {testImages} from "./SliderData";
-import './ImageSlider.scss'
+import "slick-carousel/slick/slick.css";
+import "./ImageSlider.scss"
 import {ArrowBackIos, ArrowForwardIos} from "@material-ui/icons";
+import test1 from "../../assets/images/test1.jpg"
+import test2 from "../../assets/images/test2.jpg"
+import test3 from "../../assets/images/test3.jpg"
+import test4 from "../../assets/images/test4.jpg"
+import test5 from "../../assets/images/test5.jpg"
+import test6 from "../../assets/images/test6.jpg"
+import test7 from "../../assets/images/test7.jpg"
+
+const testImages = [test1, test2, test3, test4, test5, test6, test7]
 
 const PreviousBtn = (props) => {
     const {className, onClick} = props
@@ -61,21 +68,13 @@ const ImageSlider = () => {
         customPaging: (i) => {
             return (
                 <div>
-                    {i}
+                    <img
+                        className={"slides-list"}
+                        src={testImages[i]}
+                        alt=""/>
                 </div>
             )
         }
-        // responsive: [
-        //     {
-        //         breakpoint: 1024,
-        //         settings: {
-        //             slidesToShow: 1,
-        //             slidesToScroll: 1,
-        //             infinite: true,
-        //             dots: true
-        //         }
-        //     }
-        // ]
     };
 
     return (
@@ -83,7 +82,8 @@ const ImageSlider = () => {
             <Slider {...settings}>
                 {testImages.map((image, index) => (
                     <div key = {image} className={"card"}>
-                        <img onClick={(e) => sendImageHandler(e)} className={"card-img"} src={image} alt={`test ${index}`}/>
+                        <img className={"card-img"} src={image} alt={`test ${index}`}/>
+                        {/*onClick={(e) => sendImageHandler(e)}*/}
                     </div>
                 ) )
                 }
