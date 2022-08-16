@@ -1,0 +1,3 @@
+A_M_PATH: api;models;age_model.h5
+G_M_PATH: api;models;gender_model.h5
+FD_M_PATH: api;models;haarcascade_frontalface_default.xml
