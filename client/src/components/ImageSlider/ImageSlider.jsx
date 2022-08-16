@@ -15,6 +15,7 @@ import test7 from "../../assets/images/test7.jpg"
 
 const testImages = [test1, test2, test3, test4, test5, test6, test7]
 
+
 const PreviousBtn = (props) => {
     const {className, onClick} = props
     return (
@@ -40,7 +41,6 @@ const ImageSlider = () => {
     async function sendImageHandler(e) {
         const formData = new FormData()
 
-        e.preventDefault()
         fetch(e.target)
             .then(res => res.blob())
             .then(blob => {
@@ -53,6 +53,7 @@ const ImageSlider = () => {
                 data: formData,
             }))
     }
+
 
 
     const settings = {
@@ -82,8 +83,8 @@ const ImageSlider = () => {
             <Slider {...settings}>
                 {testImages.map((image, index) => (
                     <div key = {image} className={"card"}>
-                        <img className={"card-img"} src={image} alt={`test ${index}`}/>
-                        {/*onClick={(e) => sendImageHandler(e)}*/}
+                        <img className={"card__img"} src={image} alt={`test ${index}`}/>
+                        <button onClick={() => sendImageHandler(testImages[index])} className={"card__btn"}>use this photo</button>
                     </div>
                 ) )
                 }
