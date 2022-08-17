@@ -65,7 +65,7 @@ async def receive_image(request: Request):
 
         img = open( FILEPATH , 'rb')
         files = {'img': img}
-        resp = requests.post("http://127.0.0.1:8000/api/predictions", files= files)
+        resp = requests.post("http://{host:port}/api/predictions", files= files)
     """ 
 
     file = await request.form()

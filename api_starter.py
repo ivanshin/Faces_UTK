@@ -15,4 +15,4 @@ if __name__ == "__main__":
     c_host = config['HOST']
     c_port = config['PORT']
     print(config)
-    uvicorn.run(config['API_SRC'], host= c_host, port= c_port, reload= True)
+    uvicorn.run(config['API_SRC'], host= c_host, port= c_port, log_level="info", reload= True)
