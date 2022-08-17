@@ -22,15 +22,12 @@ const SendingWindow = () => {
         formData.append('img', images[0])
         setDrag(false)
 
-        // POST request DO NOT TOUCH
         const response = await axios({
             method: 'post',
             url: 'http://127.0.0.1:8000/api/predictions',
             data: formData,
         });
-
-        // response debug check
-        console.log(response)
+        alert(response.data);
     }
 
     return (

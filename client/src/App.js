@@ -1,13 +1,17 @@
 import React from "react";
-import SendingWindow from "./components/SendingWindow";
-import './App.css'
 import './scss/app.scss'
+import SendingWindow from "./components/SendingWindow";
+import ImageSlider from "./components/ImageSlider/ImageSlider";
 
 function App() {
-
   return (
     <div className={"App"}>
-     <SendingWindow />
+        <div className="wrapper">
+            <div className="container">
+                <SendingWindow />
+                <ImageSlider />
+            </div>
+        </div>
     </div>
   );
 }

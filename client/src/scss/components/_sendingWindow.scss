@@ -1,10 +1,11 @@
 .window-container {
-  width: 40vw;
-  height: 40vh;
+  max-width:600px;
+  padding:100px 0;
+  width:100%;
   border: 3px dashed black;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  margin-top:100px;
+  margin-top:50px;
 }
