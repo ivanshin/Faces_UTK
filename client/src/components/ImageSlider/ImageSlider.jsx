@@ -38,20 +38,18 @@ const NextBtn = (props) => {
 
 const ImageSlider = () => {
 
-    async function sendImageHandler(e) {
+    async function sendImageHandler(index) {
         const formData = new FormData()
 
-        fetch(e.target)
-            .then(res => res.blob())
-            .then(blob => {
-                const file = new File([blob], 'testFile.jpg', blob)
-                console.log(file)
-            })
-            .then(axios({
-                method: 'post',
-                url: 'http://127.0.0.1:8000/api/predictions',
-                data: formData,
-            }))
+        formData.append('img', index)
+
+        const response = await axios({
+            method: 'post',
+            url: 'http://127.0.0.1:8000/api/predictions_slider',
+            data: formData,
+        });
+
+        alert(response.data);
     }
 
 
@@ -84,7 +82,7 @@ const ImageSlider = () => {
                 {testImages.map((image, index) => (
                     <div key = {image} className={"card"}>
                         <img className={"card__img"} src={image} alt={`test ${index}`}/>
-                        <button onClick={() => sendImageHandler(testImages[index])} className={"card__btn"}>use this photo</button>
+                        <button onClick={() => sendImageHandler(index)} className={"card__btn"}>use this photo</button>
                     </div>
                 ) )
                 }

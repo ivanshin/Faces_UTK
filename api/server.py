@@ -28,6 +28,11 @@ def read_config():
 # create app and load model
 config = read_config()
 service = FastAPI()
+
+test_img = [os.path.join(config['TEST_IMG_PATH'], 'test1.jpg'), os.path.join(config['TEST_IMG_PATH'], 'test2.jpg'), os.path.join(config['TEST_IMG_PATH'], 'test3.jpg'),
+os.path.join(config['TEST_IMG_PATH'], 'test4.jpg'), os.path.join(config['TEST_IMG_PATH'], 'test5.jpg'), os.path.join(config['TEST_IMG_PATH'], 'test6.jpg'),
+os.path.join(config['TEST_IMG_PATH'], 'test7.jpg')]
+
 age_model = tf.keras.models.load_model(config['A_M_PATH'])
 gender_model = tf.keras.models.load_model(config['G_M_PATH'])
 face_cascade = cv2.CascadeClassifier(config['FD_M_PATH'])
@@ -49,10 +54,64 @@ async def read_root():
 
     url_list = [{"path": route.path, "name": route.name} for route in service.routes]
 
-    if len(url_list) == 6:
+    if len(url_list) == 7:
         return "Healthy"
     else:
         return "Unhealthy"
+
+
+# slider predictions route
+@service.post("/api/predictions_slider")
+async def receive_image(request: Request):
+    """
+        Function for predicts from slider
+    """ 
+
+    file = await request.form()
+    img_ind = file['img']
+    image = Image.open(test_img[int(img_ind)])
+
+    image = np.asarray(image)
+
+    gray_img = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
+    faces = face_cascade.detectMultiScale(gray_img, 1.1, 4)
+    
+    if len(faces) == 0:
+        return "NO FACE DETECTED"
+
+    x, y, w, h =  faces[0]
+    cv2.rectangle(image, (x, y), (x+w, y+h), (255, 0, 0), 2)
+
+
+    image = Image.fromarray(image)
+    image = image.crop((x, y, x + w, y + h))
+
+    cv2.imshow('image', np.asarray(image))
+    cv2.waitKey()
+
+    image = tf.image.resize(image, [224,224]) 
+    image = tf.keras.preprocessing.image.img_to_array(image)
+    image = image / 255.0      
+    image = tf.expand_dims(image, axis=0)
+
+    age_prds = age_model.predict(image)
+    gender_prds = gender_model.predict(image)
+
+    age_prds = np.around(age_prds)
+    gender_prds = np.around(gender_prds)
+    gender = ""
+    if gender_prds[0][0] == 0:
+        gender = 'male'
+    else:
+        gender = 'female'
+
+    data = {}
+    data['age'] = str(age_prds[0][0])
+    data['gender'] = gender
+    data['b_box'] = [str((x, y, w, h)) for (x, y, w, h) in faces]
+    predictions_json = json.dumps(data)
+
+    return predictions_json
 
 
 # main predictions route
