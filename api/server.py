@@ -7,15 +7,30 @@ from fastapi.middleware.cors import CORSMiddleware
 
 import tensorflow as tf
 import numpy as np
+import yaml
 import io
 import cv2
 
 
+# read config file
+def read_config():
+    config = {}
+    print(os.path.curdir)
+    with open(os.path.join('api','models_config.yaml'), 'r') as cf:
+        config = yaml.safe_load(cf)
+
+    for var in config:
+        config[var] = config[var].replace(';', os.sep)
+
+    return config
+
+
 # create app and load model
+config = read_config()
 service = FastAPI()
-age_model = tf.keras.models.load_model(os.path.join('..', 'model_train', 'trained_model', 'age_model.h5'))
-gender_model = tf.keras.models.load_model(os.path.join('..', 'model_train', 'trained_model', 'gender_model.h5'))
-face_cascade = cv2.CascadeClassifier(os.path.join('..', 'model_train', 'trained_model', 'haarcascade_frontalface_default.xml'))
+age_model = tf.keras.models.load_model(config['A_M_PATH'])
+gender_model = tf.keras.models.load_model(config['G_M_PATH'])
+face_cascade = cv2.CascadeClassifier(config['FD_M_PATH'])
 
 
 # add CORS middleware
@@ -50,7 +65,7 @@ async def receive_image(request: Request):
 
         img = open( FILEPATH , 'rb')
         files = {'img': img}
-        resp = requests.post("http://127.0.0.1:8000/api/predictions", files= files)
+        resp = requests.post("http://{host:port}/api/predictions", files= files)
     """ 
 
     file = await request.form()

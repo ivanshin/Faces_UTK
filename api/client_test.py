@@ -15,7 +15,7 @@ img = open( FILEPATH , 'rb')
 files = {'img': img}
 
 # send request
-resp = requests.post(" http://127.0.0.1:8000/api/predictions", files= files)
+resp = requests.post(" http://127.0.0.1:8081/api/predictions", files= files)
 print(resp.json())  
 
 
