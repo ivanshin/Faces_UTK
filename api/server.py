@@ -70,7 +70,7 @@ async def receive_image(request: Request):
 
     file = await request.form()
     im_b64 = file['img']
-
+    
     image = im_b64.file.read()
     image = Image.open(io.BytesIO(image))
 
