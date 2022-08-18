@@ -1,7 +1,6 @@
 dataset/*
 .venv/*
 api/__pycache__/*
-*.jpg
 
 client/node_modules/*
 .idea

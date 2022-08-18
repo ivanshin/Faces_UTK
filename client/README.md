@@ -74,4 +74,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 ### `cd ../../api`
 ### `uvicorn server:service --reload`
 
+### `python api_starter.py`
+
 for start server
+

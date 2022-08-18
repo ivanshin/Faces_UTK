@@ -13,6 +13,7 @@
     "react-dom": "^18.1.0",
     "react-scripts": "5.0.1",
     "react-slick": "^0.29.0",
+    "react-spinners": "^0.13.4",
     "react-svg-sprite": "^1.0.8",
     "sass": "^1.54.0",
     "scss": "^0.2.4",
