@@ -1,9 +1,13 @@
 import React from 'react';
 import axios from "axios";
+import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
+import {NoImage} from "./UI/Icons/NoImage";
+import CircleLoader from "react-spinners/CircleLoader";
 
 const SendingWindow = () => {
 
     const [isDrag, setDrag] = React.useState(false)
+    const [loading, setLoading] = React.useState(false)
 
     function dragStartHandler(e) {
         e.preventDefault()
@@ -16,6 +20,8 @@ const SendingWindow = () => {
     }
 
     async function onDropHandler(e) {
+        setLoading(true)
+
         e.preventDefault()
         let images = [...e.dataTransfer.files]
         const formData = new FormData()
@@ -28,24 +34,45 @@ const SendingWindow = () => {
             data: formData,
         });
         alert(response.data);
+        setLoading(false)
     }
 
     return (
-        <div className={'window-container'}>
-            {isDrag
-                ? <div
+        <div className={'window'}>
+            { loading
+                ? <div className={'window-content'}>
+                    <div className="window-content__container window-loader">
+                        <span>Loading</span>
+                        <CircleLoader className={'loader-animation'} color={'#73baba'} loading={loading} size={50} />
+                    </div>
+                </div>
+                : isDrag
+                ? <div className={'window-content'}
                     onDragStart={(e) => dragStartHandler(e)}
                     onDragLeave={(e) => dragLeaveHandler(e)}
                     onDragOver={(e) => dragStartHandler(e)}
                     onDrop={e => onDropHandler(e)}
                 >
-                    Отпустите изображение, чтобы загрузить его
+                    <div className="window-content__container">
+                        Release the photo to upload it
+                        <div className={'window__icon'}>
+                            <AddAPhotoIcon style={{fontSize:'50px'}} />
+                        </div>
+                    </div>
                 </div>
                 : <div
+                    className={'window-content'}
                     onDragStart={(e) => dragStartHandler(e)}
                     onDragLeave={(e) => dragLeaveHandler(e)}
                     onDragOver={(e) => dragStartHandler(e)}
-                >Перетащите изображение, чтобы загрузить его</div>
+                >
+                    <div className="window-content__container">
+                        Drag and drop the photo to&nbsp;upload or&nbsp;click on&nbsp;the window to&nbsp;select a&nbsp;photo
+                        <div className = {'window__icon'}>
+                            <NoImage />
+                        </div>
+                    </div>
+                </div>
             }
         </div>
     );

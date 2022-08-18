@@ -1,6 +1,7 @@
-@import "./components/all.scss";
 @import "./libs/normalize";
 @import "./variables.scss";
+@import "./components/all.scss";
+
 
 .wrapper {
   width: calc(100vw - 100px);
