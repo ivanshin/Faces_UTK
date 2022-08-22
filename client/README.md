@@ -71,7 +71,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 ### `cd .venv/Scripts`
 ### `activate.bat`
-### `cd ../../api`
+### `cd ../..`
 ### `uvicorn server:service --reload`
 
 ### `python api_starter.py`

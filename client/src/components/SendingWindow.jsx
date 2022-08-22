@@ -28,6 +28,8 @@ const SendingWindow = () => {
         formData.append('img', images[0])
         setDrag(false)
 
+        console.log(images[0])
+
         const response = await axios({
             method: 'post',
             url: 'http://127.0.0.1:8000/api/predictions',
@@ -35,6 +37,21 @@ const SendingWindow = () => {
         });
         alert(response.data);
         setLoading(false)
+    }
+
+    const loadingByClick = async (e) => {
+        setLoading(true);
+        e.preventDefault();
+        let images = e.target.files[0];
+        const formData = new FormData()
+        formData.append('img', images)
+        const response = await axios({
+            method: 'post',
+            url: 'http://127.0.0.1:8000/api/predictions',
+            data: formData,
+        });
+        alert(response.data);
+        setLoading(false);
     }
 
     return (
@@ -66,12 +83,20 @@ const SendingWindow = () => {
                     onDragLeave={(e) => dragLeaveHandler(e)}
                     onDragOver={(e) => dragStartHandler(e)}
                 >
-                    <div className="window-content__container">
-                        Drag and drop the photo to&nbsp;upload or&nbsp;click on&nbsp;the window to&nbsp;select a&nbsp;photo
-                        <div className = {'window__icon'}>
-                            <NoImage />
-                        </div>
-                    </div>
+                        <form
+                            className="window-content__form"
+                            onChange={loadingByClick}
+                        >
+                            <label htmlFor="input-file">
+                                <div className={'window-content__container'}>
+                                    Drag and drop the photo to&nbsp;upload or&nbsp;click on&nbsp;the window to&nbsp;select a&nbsp;photo
+                                    <div className = {'window__icon'}>
+                                        <NoImage />
+                                    </div>
+                                </div>
+                            </label>
+                            <input id={"input-file"} type="file" className="type"/>
+                        </form>
                 </div>
             }
         </div>

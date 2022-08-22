@@ -11,10 +11,6 @@
   &__icon {
     margin-top:20px;
   }
-
-  &:hover {
-    cursor: pointer;
-  }
 }
 
 
@@ -27,9 +23,22 @@
   height:100%;
   font-weight: bold;
 
-  &__container {
+  &__form {
     font-size:18px;
-    padding:100px 0px;
+  }
+
+  &__container {
+    padding: 80px 50px;
+  }
+
+  &__form label {
+    cursor: pointer;
+  }
+
+  &__form input {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
   }
 }
 
