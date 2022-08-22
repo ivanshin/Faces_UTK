@@ -6,7 +6,6 @@
   border-radius: 5px;
   padding: 10px 25px;
   font-family: 'Lato', sans-serif;
-  font-weight: 500;
   background: transparent;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -17,6 +16,11 @@
   4px 4px 5px 0px rgba(0,0,0,.1);
   outline: none;
 }
+
+.custom-btn span {
+  color: #fff;
+}
+
 .changeable {
   position: relative;
   right: 20px;
