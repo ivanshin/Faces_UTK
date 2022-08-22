@@ -1,14 +1,23 @@
-import React from 'react';
+import React, {useState} from 'react';
 import axios from "axios";
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import {NoImage} from "./UI/Icons/NoImage";
 import CircleLoader from "react-spinners/CircleLoader";
+import ServerAnswer from "./ServerAnswer";
+import ChangeableButton from "./UI/ChangeableButton";
 
 const SendingWindow = () => {
 
-    const [isDrag, setDrag] = React.useState(false)
-    const [loading, setLoading] = React.useState(false)
-    const photoComponent = React.useRef();
+    const [isDrag, setDrag] = useState(false)
+    const [loading, setLoading] = useState(false)
+    const [isAnswer, setIsAnswer] = useState(false)
+    const [answer, setAnswer] = useState()
+    const [photoURL, setPhotoURL] = useState()
+
+    const fileReader = new FileReader()
+    fileReader.onloadend = () => {
+        setPhotoURL(fileReader.result);
+    }
 
     function dragStartHandler(e) {
         e.preventDefault()
@@ -21,69 +30,89 @@ const SendingWindow = () => {
     }
 
     async function onDropHandler(e) {
-        setLoading(true)
+        setLoading(true);
 
-        e.preventDefault()
-        let images = [...e.dataTransfer.files]
-        const formData = new FormData()
-        formData.append('img', images[0])
-        setDrag(false)
-
-        console.log(images[0])
+        e.preventDefault();
+        let images = [...e.dataTransfer.files][0];
+        fileReader.readAsDataURL(images);
+        const formData = new FormData();
+        formData.append('img', images);
+        setDrag(false);
 
         const response = await axios({
             method: 'post',
             url: 'http://127.0.0.1:8000/api/predictions',
             data: formData,
         });
-        alert(response.data);
-        setLoading(false)
+
+        setAnswer(JSON.parse(response.data))
+        setLoading(false);
+        setIsAnswer(true);
     }
 
     const loadingByClick = async (e) => {
         setLoading(true);
         e.preventDefault();
-        let images = photoComponent.current.files[0];
-        const formData = new FormData()
-        formData.append('img', images)
+        let images = e.target.files[0];
+        fileReader.readAsDataURL(images);
+        const formData = new FormData();
+        formData.append('img', images);
+
         const response = await axios({
             method: 'post',
             url: 'http://127.0.0.1:8000/api/predictions',
             data: formData,
         });
-        alert(response.data);
+
+        setAnswer(JSON.parse(response.data))
         setLoading(false);
+        setIsAnswer(true);
+    }
+
+    const resetAnswer = () => {
+        setIsAnswer(false);
+        setPhotoURL(null);
     }
 
     return (
-        <div className={'window'}>
-            { loading
-                ? <div className={'window-content'}>
-                    <div className="window-content__container window-loader">
-                        <span>Loading</span>
-                        <CircleLoader className={'loader-animation'} color={'#73baba'} loading={loading} size={50} />
-                    </div>
+        <>
+            {isAnswer
+                ? <div className={'serverAnswer'}>
+                    <ServerAnswer answer={answer} photoURL={photoURL}/>
+                    <ChangeableButton onClick = {resetAnswer} title={'Other photo'}/>
                 </div>
+                : loading
+                ? <div className="window">
+                        <div className={'window-content'}>
+                            <div className="window-content__container window-loader">
+                                <span>Loading</span>
+                                <CircleLoader className={'loader-animation'} color={'#73baba'} loading={loading} size={50} />
+                            </div>
+                        </div>
+                    </div>
                 : isDrag
-                ? <div className={'window-content'}
-                    onDragStart={(e) => dragStartHandler(e)}
-                    onDragLeave={(e) => dragLeaveHandler(e)}
-                    onDragOver={(e) => dragStartHandler(e)}
-                    onDrop={e => onDropHandler(e)}
-                >
-                    <div className="window-content__container">
-                        Release the photo to upload it
-                        <div className={'window__icon'}>
-                            <AddAPhotoIcon style={{fontSize:'50px'}} />
+                ? <div className="window">
+                    <div className={'window-content'}
+                         onDragStart={(e) => dragStartHandler(e)}
+                         onDragLeave={(e) => dragLeaveHandler(e)}
+                         onDragOver={(e) => dragStartHandler(e)}
+                         onDrop={e => onDropHandler(e)}
+                    >
+                        <div className="window-content__container">
+                            Release the photo to upload it
+                            <div className={'window__icon'}>
+                                <AddAPhotoIcon style={{fontSize:'50px'}} />
+                            </div>
                         </div>
                     </div>
                 </div>
-                : <div
-                    className={'window-content'}
-                    onDragStart={(e) => dragStartHandler(e)}
-                    onDragLeave={(e) => dragLeaveHandler(e)}
-                    onDragOver={(e) => dragStartHandler(e)}
-                >
+                : <div className="window">
+                    <div
+                        className={'window-content'}
+                        onDragStart={(e) => dragStartHandler(e)}
+                        onDragLeave={(e) => dragLeaveHandler(e)}
+                        onDragOver={(e) => dragStartHandler(e)}
+                    >
                         <form
                             className="window-content__form"
                             onChange={loadingByClick}
@@ -96,11 +125,12 @@ const SendingWindow = () => {
                                     </div>
                                 </div>
                             </label>
-                            <input id={"input-file"} ref={photoComponent} type="file" className="type"/>
+                            <input id={"input-file"} type="file" className="type"/>
                         </form>
+                    </div>
                 </div>
             }
-        </div>
+        </>
     );
 };
 
