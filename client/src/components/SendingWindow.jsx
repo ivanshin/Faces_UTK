@@ -8,6 +8,7 @@ const SendingWindow = () => {
 
     const [isDrag, setDrag] = React.useState(false)
     const [loading, setLoading] = React.useState(false)
+    const photoComponent = React.useRef();
 
     function dragStartHandler(e) {
         e.preventDefault()
@@ -42,7 +43,7 @@ const SendingWindow = () => {
     const loadingByClick = async (e) => {
         setLoading(true);
         e.preventDefault();
-        let images = e.target.files[0];
+        let images = photoComponent.current.files[0];
         const formData = new FormData()
         formData.append('img', images)
         const response = await axios({
@@ -95,7 +96,7 @@ const SendingWindow = () => {
                                     </div>
                                 </div>
                             </label>
-                            <input id={"input-file"} type="file" className="type"/>
+                            <input id={"input-file"} ref={photoComponent} type="file" className="type"/>
                         </form>
                 </div>
             }
