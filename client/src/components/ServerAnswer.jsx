@@ -1,7 +1,7 @@
 import React from 'react';
 
 const ServerAnswer = (props) => {
-    {console.log(props.answer)}
+
     return (
         <div className={"serverAnswer__container"}>
             <div className="image-container">
