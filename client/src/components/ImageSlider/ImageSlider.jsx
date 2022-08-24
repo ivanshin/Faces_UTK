@@ -1,19 +1,12 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import Slider from "react-slick"
 import axios from "axios";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import "./ImageSlider.scss"
 import {ArrowBackIos, ArrowForwardIos} from "@material-ui/icons";
-import test1 from "../../assets/images/test1.jpg"
-import test2 from "../../assets/images/test2.jpg"
-import test3 from "../../assets/images/test3.jpg"
-import test4 from "../../assets/images/test4.jpg"
-import test5 from "../../assets/images/test5.jpg"
-import test6 from "../../assets/images/test6.jpg"
-import test7 from "../../assets/images/test7.jpg"
-
-const testImages = [test1, test2, test3, test4, test5, test6, test7]
+import testImages from "./SliderData";
+import WindowContext from "../../context";
 
 
 const PreviousBtn = (props) => {
@@ -35,10 +28,14 @@ const NextBtn = (props) => {
 }
 
 
-
 const ImageSlider = () => {
 
+    const {setLoading, setIsAnswer, setAnswer,setPhotoURL} = useContext(WindowContext)
+
+
     async function sendImageHandler(index) {
+        setLoading(true);
+
         const formData = new FormData()
 
         formData.append('img', index)
@@ -49,7 +46,10 @@ const ImageSlider = () => {
             data: formData,
         });
 
-        alert(response.data);
+        setPhotoURL(testImages[index])
+        setAnswer(JSON.parse(response.data))
+        setLoading(false);
+        setIsAnswer(true);
     }
 
 

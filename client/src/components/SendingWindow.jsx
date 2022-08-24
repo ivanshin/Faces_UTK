@@ -1,18 +1,17 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import axios from "axios";
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import {NoImage} from "./UI/Icons/NoImage";
 import CircleLoader from "react-spinners/CircleLoader";
 import ServerAnswer from "./ServerAnswer";
 import ChangeableButton from "./UI/ChangeableButton";
+import WindowContext from "../context";
 
 const SendingWindow = () => {
 
     const [isDrag, setDrag] = useState(false)
-    const [loading, setLoading] = useState(false)
-    const [isAnswer, setIsAnswer] = useState(false)
-    const [answer, setAnswer] = useState()
-    const [photoURL, setPhotoURL] = useState()
+
+    const {loading, setLoading, isAnswer, setIsAnswer, setAnswer, setPhotoURL} = useContext(WindowContext)
 
     const fileReader = new FileReader()
     fileReader.onloadend = () => {
@@ -78,7 +77,7 @@ const SendingWindow = () => {
         <>
             {isAnswer
                 ? <div className={'serverAnswer'}>
-                    <ServerAnswer answer={answer} photoURL={photoURL}/>
+                    <ServerAnswer />
                     <ChangeableButton onClick = {resetAnswer} title={'Other photo'}/>
                 </div>
                 : loading
