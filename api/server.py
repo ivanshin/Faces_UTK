@@ -170,7 +170,12 @@ async def receive_image(request: Request):
     data = {}
     data['age'] = str(age_prds[0][0])
     data['gender'] = gender
-    data['b_box'] = [str((x, y, w, h)) for (x, y, w, h) in faces]
+    b_box_arr = [(x, y, w, h) for (x, y, w, h) in faces]
+
+    data['left'] = str(b_box_arr[0][0])
+    data['top'] =  str(b_box_arr[0][1])
+    data['width'] = str(b_box_arr[0][2])
+    data['height'] = str(b_box_arr[0][3])
     predictions_json = json.dumps(data)
 
     return predictions_json
