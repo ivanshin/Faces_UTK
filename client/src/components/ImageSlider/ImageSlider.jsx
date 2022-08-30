@@ -81,8 +81,12 @@ const ImageSlider = () => {
             <Slider {...settings}>
                 {testImages.map((image, index) => (
                     <div key = {image} className={"card"}>
-                        <img className={"card__img"} src={image} alt={`test ${index}`}/>
-                        <button onClick={() => sendImageHandler(index)} className={"card__btn"}>use this photo</button>
+                        <div className="card__container">
+                            <div className="card__wrapper">
+                                <img className={"card__img"} src={image} alt={`test ${index}`}/>
+                                <button onClick={() => sendImageHandler(index)} className={"card__btn"}>Use this photo</button>
+                            </div>
+                        </div>
                     </div>
                 ) )
                 }

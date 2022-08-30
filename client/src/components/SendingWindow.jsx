@@ -85,12 +85,12 @@ const SendingWindow = () => {
                         <div className={'window-content'}>
                             <div className="window-content__container window-loader">
                                 <span>Loading</span>
-                                <CircleLoader className={'loader-animation'} color={'#73baba'} loading={loading} size={50} />
+                                <CircleLoader className={'loader-animation'} color={'#FFF'} loading={loading} size={50} />
                             </div>
                         </div>
                     </div>
                 : isDrag
-                ? <div className="window">
+                ? <div className="window window__drop">
                     <div className={'window-content'}
                          onDragStart={(e) => dragStartHandler(e)}
                          onDragLeave={(e) => dragLeaveHandler(e)}

@@ -1,17 +1,35 @@
 .slider-container {
   margin-top:50px;
-  max-width:450px;
+  max-width:420px;
   width:100%;
   margin-bottom: 50px;
 }
 
 .card {
-  border-radius: 8px;
   overflow: hidden;
-  border: 1px solid black;
 
   &:hover {
     transition: all 0.3s ease-in-out;
+  }
+
+  &__container {
+    width:100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__wrapper {
+    width:70%;
+    border: 1px solid black;
+    border-radius: 10px;
+  }
+
+  &__wrapper img {
+    width:100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px 10px 0px 0px;
   }
 
   &__btn {
@@ -19,6 +37,7 @@
     width:100%;
     background: #73baba;
     border: none;
+    border-radius: 0px 0px 10px 10px;
   }
 
   &__btn:hover {
@@ -26,11 +45,6 @@
   }
 }
 
-.card > img {
-  width:100%;
-  height: 100%;
-  object-fit: cover;
-}
 
 .slick-arrow.slick-prev,
 .slick-arrow.slick-next {
@@ -52,11 +66,6 @@
   transition: all 0.3s ease-in-out;
 }
 
-.slider-left {
-  position: absolute;
-  right: -10px;
-}
-
 .slides-list {
   width: 50px;
   height: 50px;
@@ -76,4 +85,12 @@
 
 .custom-indicator li.slick-active {
   filter: grayscale(0);
+}
+
+.slick-next {
+  right:30px;
+}
+
+.slick-prev {
+  left:20px;
 }
