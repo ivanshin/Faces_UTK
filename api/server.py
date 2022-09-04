@@ -75,6 +75,7 @@ async def make_predictions_pipeline(request, from_slider= False):
 
         image = im_b64.file.read()
         image = Image.open(io.BytesIO(image))
+        image = image.convert("RGB")
 
     image = np.asarray(image)
 
