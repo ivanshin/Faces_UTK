@@ -8,7 +8,7 @@ function Main () {
     const [loading, setLoading] = useState(false)
     const [isAnswer, setIsAnswer] = useState(false)
     const [answer, setAnswer] = useState()
-    const [photoURL, setPhotoURL] = useState()
+    const [photoURL, setPhotoURL] = useState(0)
 
     return (
         <React.StrictMode>

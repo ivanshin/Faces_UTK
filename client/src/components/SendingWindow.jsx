@@ -11,7 +11,7 @@ const SendingWindow = () => {
 
     const [isDrag, setDrag] = useState(false)
 
-    const {loading, setLoading, isAnswer, setIsAnswer, setAnswer, setPhotoURL} = useContext(WindowContext)
+    const {loading, setLoading, isAnswer, setIsAnswer, setAnswer, setPhotoURL, photoURL} = useContext(WindowContext)
 
     const fileReader = new FileReader()
     fileReader.onloadend = () => {
@@ -56,16 +56,17 @@ const SendingWindow = () => {
         fileReader.readAsDataURL(images);
         const formData = new FormData();
         formData.append('img', images);
-
-        const response = await axios({
-            method: 'post',
-            url: 'http://127.0.0.1:8000/api/predictions',
-            data: formData,
-        });
-
-        setAnswer(JSON.parse(response.data))
         setLoading(false);
         setIsAnswer(true);
+
+        // const response = await axios({
+        //     method: 'post',
+        //     url: 'http://127.0.0.1:8000/api/predictions',
+        //     data: formData,
+        // });
+        //
+        // setAnswer(JSON.parse(response.data))
+
     }
 
     const resetAnswer = () => {
@@ -75,12 +76,12 @@ const SendingWindow = () => {
 
     return (
         <>
-            {isAnswer
+            {isAnswer && photoURL
                 ? <div className={'serverAnswer'}>
                     <ServerAnswer />
                     <ChangeableButton onClick = {resetAnswer} title={'Other photo'}/>
                 </div>
-                : loading
+                : loading && !photoURL
                 ? <div className="window">
                         <div className={'window-content'}>
                             <div className="window-content__container window-loader">
