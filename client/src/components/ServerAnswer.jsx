@@ -1,10 +1,11 @@
 import React, {useContext, useEffect, useRef} from 'react';
 import WindowContext from "../context";
 import axios from "axios";
+import ChangeableButton from "./UI/ChangeableButton";
 
 const ServerAnswer = () => {
 
-    const {answer, setAnswer, photoURL, photo} = useContext(WindowContext)
+    const {answer, setAnswer, photoURL, photo, setIsAnswer, setPhotoURL} = useContext(WindowContext)
     const userPhoto = useRef();
 
     async function requestServer() {
@@ -25,28 +26,35 @@ const ServerAnswer = () => {
         requestServer();
     },[])
 
-    return (
-        <div className={"serverAnswer__container"}>
-            <div className="image-container">
-                <img ref={userPhoto} src={photoURL} alt="UserPhoto"/>
-            </div>
-            {
-                answer
-                ? <div
-                        className='b-box'
-                        style={{width:`${answer['width']}px`, height:`${answer['height']}px`, left:`${answer['left']}px`,top:`${answer['top']}px`}}>
-                </div>
-                : null
-            }
+    const resetAnswer = () => {
+        setIsAnswer(false);
+        setPhotoURL(null);
+    }
 
-            {/*<div className="answer">*/}
-            {/*    <div className="answer__age">*/}
-            {/*        <span>Age: </span>{Math.round(answer['age'])}*/}
-            {/*    </div>*/}
-            {/*    <div className="answer__gender">*/}
-            {/*        <span>Gender: </span>{answer['gender']}*/}
-            {/*    </div>*/}
-            {/*</div>*/}
+    return (
+        <div className="serverAnswer">
+            <div className={"serverAnswer__container"}>
+                <div className="image-container">
+                    <img ref={userPhoto} src={photoURL} alt="UserPhoto"/>
+                </div>
+                {
+                    answer
+                        ? <div
+                            className='b-box'
+                            style={{width:`${answer['width']}px`, height:`${answer['height']}px`, left:`${answer['left']}px`,top:`${answer['top']}px`}}>
+                        </div>
+                        : null
+                }
+                {/*<div className="answer">*/}
+                {/*    <div className="answer__age">*/}
+                {/*        <span>Age: </span>{Math.round(answer['age'])}*/}
+                {/*    </div>*/}
+                {/*    <div className="answer__gender">*/}
+                {/*        <span>Gender: </span>{answer['gender']}*/}
+                {/*    </div>*/}
+                {/*</div>*/}
+            </div>
+            <ChangeableButton onClick = {resetAnswer} title={'Other photo'}/>
         </div>
     );
 };

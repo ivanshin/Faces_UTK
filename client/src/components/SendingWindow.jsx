@@ -3,15 +3,13 @@ import axios from "axios";
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import {NoImage} from "./UI/Icons/NoImage";
 import CircleLoader from "react-spinners/CircleLoader";
-import ServerAnswer from "./ServerAnswer";
-import ChangeableButton from "./UI/ChangeableButton";
 import WindowContext from "../context";
 
 const SendingWindow = () => {
 
     const [isDrag, setDrag] = useState(false)
 
-    const {loading, setLoading, isAnswer, setIsAnswer, setAnswer, setPhotoURL, photoURL, setPhoto} = useContext(WindowContext)
+    const {loading, setLoading, setIsAnswer, setAnswer, setPhotoURL, photoURL, setPhoto} = useContext(WindowContext)
 
     const fileReader = new FileReader()
     fileReader.onloadend = () => {
@@ -59,19 +57,10 @@ const SendingWindow = () => {
         setIsAnswer(true);
     }
 
-    const resetAnswer = () => {
-        setIsAnswer(false);
-        setPhotoURL(null);
-    }
-
     return (
         <>
-            {isAnswer && photoURL
-                ? <div className={'serverAnswer'}>
-                    <ServerAnswer />
-                    <ChangeableButton onClick = {resetAnswer} title={'Other photo'}/>
-                </div>
-                : loading && !photoURL
+            {
+                loading && !photoURL
                 ? <div className="window">
                         <div className={'window-content'}>
                             <div className="window-content__container window-loader">
