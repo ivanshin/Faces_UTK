@@ -11,7 +11,7 @@ const SendingWindow = () => {
 
     const [isDrag, setDrag] = useState(false)
 
-    const {loading, setLoading, isAnswer, setIsAnswer, setAnswer, setPhotoURL, photoURL} = useContext(WindowContext)
+    const {loading, setLoading, isAnswer, setIsAnswer, setAnswer, setPhotoURL, photoURL, setPhoto} = useContext(WindowContext)
 
     const fileReader = new FileReader()
     fileReader.onloadend = () => {
@@ -53,20 +53,10 @@ const SendingWindow = () => {
         setLoading(true);
         e.preventDefault();
         let images = e.target.files[0];
+        setPhoto(images);
         fileReader.readAsDataURL(images);
-        const formData = new FormData();
-        formData.append('img', images);
         setLoading(false);
         setIsAnswer(true);
-
-        // const response = await axios({
-        //     method: 'post',
-        //     url: 'http://127.0.0.1:8000/api/predictions',
-        //     data: formData,
-        // });
-        //
-        // setAnswer(JSON.parse(response.data))
-
     }
 
     const resetAnswer = () => {

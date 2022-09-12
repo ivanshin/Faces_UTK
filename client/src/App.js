@@ -9,6 +9,7 @@ function App() {
     <div className={"App"}>
         <div className="wrapper">
             <div className="container">
+
                 <SendingWindow />
                 <ImageSlider />
             </div>
