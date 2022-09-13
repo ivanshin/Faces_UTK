@@ -5,17 +5,16 @@ import App from './App';
 import WindowContext from "./context";
 
 function Main () {
-    const [loading, setLoading] = useState(false)
-    const [isAnswer, setIsAnswer] = useState(false)
-    const [answer, setAnswer] = useState()
-    const [photoURL, setPhotoURL] = useState()
+    const [loading, setLoading] = useState(false);
+    const [isAnswer, setIsAnswer] = useState(false);
+    const [answer, setAnswer] = useState(false);
+    const [photoURL, setPhotoURL] = useState(false);
+    const [photo, setPhoto] = useState(false);
 
     return (
-        <React.StrictMode>
-            <WindowContext.Provider value={{loading, setLoading,isAnswer, setIsAnswer, answer, setAnswer, photoURL, setPhotoURL}}>
+            <WindowContext.Provider value={{loading, setLoading,isAnswer, setIsAnswer, answer, setAnswer, photoURL, setPhotoURL, photo, setPhoto}}>
                 <App />
             </WindowContext.Provider>
-        </React.StrictMode>
         )
 
 }
