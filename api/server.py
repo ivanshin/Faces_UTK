@@ -64,21 +64,26 @@ async def read_root():
 
 
 async def make_predictions_pipeline(request, from_slider= False):
-    
+    client_width = 0
+    client_height = 0
     if from_slider:
         file = await request.form()
         img_ind = file['img']
         image = Image.open(test_img[int(img_ind)])
+
     else:
         file = await request.form()
         im_b64 = file['img']
 
         image = im_b64.file.read()
         image = Image.open(io.BytesIO(image))
-        image = image.convert("RGB")
+        #image = image.convert("RGB")
 
-    image = np.asarray(image)
+        client_width = int(file['width'])
+        client_height = int(file['height'])
 
+    image =  image.resize((client_width, client_height))
+    image = np.array(image)
     gray_img = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
     faces = face_cascade.detectMultiScale(gray_img, 1.1, 4)
     

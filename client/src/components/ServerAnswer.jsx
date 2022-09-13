@@ -12,7 +12,7 @@ const ServerAnswer = () => {
         const formData = new FormData();
         formData.append('img', photo);
         formData.append('width',userPhoto.current.clientWidth);
-
+        formData.append('height',userPhoto.current.clientHeight);
         const response = await axios({
             method: 'post',
             url: 'http://127.0.0.1:8000/api/predictions',
