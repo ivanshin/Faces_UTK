@@ -1,11 +1,10 @@
 import React, {useContext, useEffect, useRef} from 'react';
 import WindowContext from "../context";
 import axios from "axios";
-import ChangeableButton from "./UI/ChangeableButton";
 
-const ServerAnswer = () => {
+const UserPhoto = () => {
 
-    const {answer, setAnswer, photoURL, photo, setIsAnswer, setPhotoURL} = useContext(WindowContext)
+    const {answer, setAnswer, photoURL, photo} = useContext(WindowContext)
     const userPhoto = useRef();
 
     async function requestServer() {
@@ -26,10 +25,10 @@ const ServerAnswer = () => {
         requestServer();
     },[])
 
-    const resetAnswer = () => {
-        setIsAnswer(false);
-        setPhotoURL(null);
-    }
+    // const resetAnswer = () => {
+    //     setIsAnswer(false);
+    //     setPhotoURL(null);
+    // }
 
     return (
         <div className="serverAnswer">
@@ -54,9 +53,9 @@ const ServerAnswer = () => {
                 {/*    </div>*/}
                 {/*</div>*/}
             </div>
-            <ChangeableButton onClick = {resetAnswer} title={'Other photo'}/>
+            {/*<ChangeableButton onClick = {resetAnswer} title={'Other photo'}/>*/}
         </div>
     );
 };
 
-export default ServerAnswer;
+export default UserPhoto;

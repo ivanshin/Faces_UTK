@@ -1,7 +1,7 @@
 import React, {useContext} from "react";
 import './scss/app.scss';
 import SendingWindow from "./components/SendingWindow";
-import ServerAnswer from "./components/ServerAnswer";
+import UserPhoto from "./components/userPhoto";
 import ImageSlider from "./components/ImageSlider/ImageSlider";
 import WindowContext from "./context";
 
@@ -17,7 +17,7 @@ function App() {
                 <main>
                     <div className="window-image">
                         {isAnswer && photoURL
-                            ? <ServerAnswer />
+                            ? <UserPhoto />
                             : <SendingWindow />
                         }
                     </div>
