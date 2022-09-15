@@ -7,7 +7,7 @@ import "./ImageSlider.scss"
 import {ArrowBackIos, ArrowForwardIos} from "@material-ui/icons";
 import testImages from "./SliderData";
 import WindowContext from "../../context";
-
+import * as imageConversion from 'image-conversion';
 
 const PreviousBtn = (props) => {
     const {className, onClick} = props
@@ -30,29 +30,19 @@ const NextBtn = (props) => {
 
 const ImageSlider = () => {
 
-    const {setLoading, setIsAnswer, setAnswer,setPhotoURL} = useContext(WindowContext)
+    const {setLoading, setIsAnswer, setPhoto,setPhotoURL} = useContext(WindowContext)
 
 
     async function sendImageHandler(index) {
         setLoading(true);
-
-        const formData = new FormData()
-
-        formData.append('img', index)
-
-        const response = await axios({
-            method: 'post',
-            url: 'http://127.0.0.1:8000/api/predictions_slider',
-            data: formData,
-        });
-
+        let imgObject = await imageConversion.urltoImage(testImages[index]);
+        let imgCanvas = await imageConversion.imagetoCanvas(imgObject);
+        let imgFile = await imageConversion.canvastoFile(imgCanvas);
+        setPhoto(imgFile);
         setPhotoURL(testImages[index])
-        setAnswer(JSON.parse(response.data))
         setLoading(false);
         setIsAnswer(true);
     }
-
-
 
     const settings = {
         nextArrow: <NextBtn />,
