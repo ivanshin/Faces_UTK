@@ -28,21 +28,11 @@ const SendingWindow = () => {
 
     async function onDropHandler(e) {
         setLoading(true);
-
         e.preventDefault();
         let images = [...e.dataTransfer.files][0];
+        setPhoto(images);
         fileReader.readAsDataURL(images);
-        const formData = new FormData();
-        formData.append('img', images);
         setDrag(false);
-
-        const response = await axios({
-            method: 'post',
-            url: 'http://127.0.0.1:8000/api/predictions',
-            data: formData,
-        });
-
-        setAnswer(JSON.parse(response.data))
         setLoading(false);
         setIsAnswer(true);
     }
