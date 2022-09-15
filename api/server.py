@@ -56,7 +56,7 @@ async def read_root():
 
     url_list = [{"path": route.path, "name": route.name} for route in service.routes]
 
-    if len(url_list) == 7:
+    if len(url_list) == 6:
         return "Healthy"
     else:
         return "Unhealthy"
@@ -132,13 +132,13 @@ async def make_predictions_pipeline(request, from_slider= False):
 
 
 # slider predictions route
-@service.post("/api/predictions_slider")
-async def receive_image(request: Request):
-    """
-        Function for predicts from slider
-    """ 
-    results_json = await make_predictions_pipeline(request, from_slider= True)
-    return results_json
+# @service.post("/api/predictions_slider")
+# async def receive_image(request: Request):
+#    """
+#        Function for predicts from slider
+#    """ 
+#    results_json = await make_predictions_pipeline(request, from_slider= True)
+#    return results_json
 
 
 
