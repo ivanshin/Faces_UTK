@@ -5,14 +5,15 @@ import App from './App';
 import WindowContext from "./context";
 
 function Main () {
-    const [loading, setLoading] = useState(false);
     const [isAnswer, setIsAnswer] = useState(false);
     const [answer, setAnswer] = useState(false);
     const [photoURL, setPhotoURL] = useState(false);
     const [photo, setPhoto] = useState(false);
+    const [isPhoto, setIsPhoto] = useState(false);
+    const [windowLoading, setWindowLoading] = useState(false);
 
     return (
-            <WindowContext.Provider value={{loading, setLoading,isAnswer, setIsAnswer, answer, setAnswer, photoURL, setPhotoURL, photo, setPhoto}}>
+            <WindowContext.Provider value={{windowLoading, setWindowLoading, isPhoto, setIsPhoto, isAnswer, setIsAnswer, answer, setAnswer, photoURL, setPhotoURL, photo, setPhoto}}>
                 <App />
             </WindowContext.Provider>
         )

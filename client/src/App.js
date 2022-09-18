@@ -3,12 +3,13 @@ import './scss/app.scss';
 import SendingWindow from "./components/SendingWindow";
 import UserPhoto from "./components/UserPhoto";
 import ImageSlider from "./components/ImageSlider/ImageSlider";
-import WindowContext from "./context";
+import AppContext from "./context";
 import Normolize from 'react-normalize'
+import ServerAnswer from "./components/ServerAnswer";
 
 function App() {
 
-    const {photoURL, isAnswer, answer} = useContext(WindowContext)
+    const {photoURL, isPhoto, answer} = useContext(AppContext)
 
   return (
     <div className={"App"}>
@@ -17,13 +18,17 @@ function App() {
             <div className="container">
                 <main>
                     <div className="window-image">
-                        {isAnswer && photoURL
+                        {isPhoto && photoURL
                             ? <UserPhoto />
                             : <SendingWindow />
                         }
                     </div>
                     <div className="slider-answer">
-                        <ImageSlider />
+                        {
+                            isPhoto
+                            ? <ServerAnswer />
+                            : <ImageSlider />
+                        }
                     </div>
                 </main>
             </div>
