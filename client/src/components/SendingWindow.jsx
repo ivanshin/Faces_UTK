@@ -1,5 +1,4 @@
 import React, {useState, useContext} from 'react';
-import axios from "axios";
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import {NoImage} from "./UI/Icons/NoImage";
 import CircleLoader from "react-spinners/CircleLoader";
@@ -9,7 +8,7 @@ const SendingWindow = () => {
 
     const [isDrag, setDrag] = useState(false)
 
-    const {loading, setLoading, setIsAnswer, setAnswer, setPhotoURL, photoURL, setPhoto} = useContext(WindowContext)
+    const {loading, setLoading, setIsAnswer, setPhotoURL, photoURL, setPhoto} = useContext(WindowContext)
 
     const fileReader = new FileReader()
     fileReader.onloadend = () => {

@@ -1,10 +1,10 @@
 import React, {useContext} from "react";
 import './scss/app.scss';
 import SendingWindow from "./components/SendingWindow";
-import UserPhoto from "./components/userPhoto";
+import UserPhoto from "./components/UserPhoto";
 import ImageSlider from "./components/ImageSlider/ImageSlider";
 import WindowContext from "./context";
-
+import Normolize from 'react-normalize'
 
 function App() {
 
@@ -12,6 +12,7 @@ function App() {
 
   return (
     <div className={"App"}>
+        <Normolize />
         <div className="wrapper">
             <div className="container">
                 <main>
