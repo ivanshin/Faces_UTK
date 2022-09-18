@@ -1,15 +1,13 @@
 import React, {useState, useContext} from 'react';
-import axios from "axios";
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import {NoImage} from "./UI/Icons/NoImage";
 import CircleLoader from "react-spinners/CircleLoader";
-import WindowContext from "../context";
+import AppContext from "../context";
 
 const SendingWindow = () => {
 
     const [isDrag, setDrag] = useState(false)
-
-    const {loading, setLoading, setIsAnswer, setAnswer, setPhotoURL, photoURL, setPhoto} = useContext(WindowContext)
+    const {windowLoading, setWindowLoading, setIsPhoto, setPhotoURL, photoURL, setPhoto} = useContext(AppContext)
 
     const fileReader = new FileReader()
     fileReader.onloadend = () => {
@@ -27,35 +25,35 @@ const SendingWindow = () => {
     }
 
     async function onDropHandler(e) {
-        setLoading(true);
+        setWindowLoading(true);
         e.preventDefault();
         let images = [...e.dataTransfer.files][0];
         setPhoto(images);
         fileReader.readAsDataURL(images);
         setDrag(false);
-        setLoading(false);
-        setIsAnswer(true);
+        setWindowLoading(false);
+        setIsPhoto(true);
     }
 
     const loadingByClick = async (e) => {
-        setLoading(true);
+        setWindowLoading(true);
         e.preventDefault();
         let images = e.target.files[0];
         setPhoto(images);
         fileReader.readAsDataURL(images);
-        setLoading(false);
-        setIsAnswer(true);
+        setWindowLoading(false);
+        setIsPhoto(true);
     }
 
     return (
         <>
             {
-                loading && !photoURL
+                windowLoading && !photoURL
                 ? <div className="window">
                         <div className={'window-content'}>
                             <div className="window-content__container window-loader">
-                                <span>Loading</span>
-                                <CircleLoader className={'loader-animation'} color={'#FFF'} loading={loading} size={50} />
+                                <CircleLoader className={'loader-animation'} color={'#FFF'} loading={windowLoading} size={50} />
+                                <span>Loading...</span>
                             </div>
                         </div>
                     </div>

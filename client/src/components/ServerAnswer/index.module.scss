@@ -1,0 +1,39 @@
+@import "../../scss/variables";
+
+.answer {
+  width:400px;
+  height:200px;
+  background-color: $active-color;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  color: $text-color;
+  font-size:18px;
+  justify-content: center;
+}
+
+.gender {
+  padding-bottom: 10px;
+
+  span {
+    font-weight: bold;
+  }
+
+}
+
+.age {
+  padding-bottom: 10px;
+
+  span {
+    font-weight: bold;
+  }
+}
+
+.loader {
+  padding-bottom:15px;
+}
+
+.loading {
+  font-size:24px;
+}

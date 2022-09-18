@@ -1,12 +1,11 @@
 import React, {useContext} from 'react';
 import Slider from "react-slick"
-import axios from "axios";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import "./ImageSlider.scss"
 import {ArrowBackIos, ArrowForwardIos} from "@material-ui/icons";
 import testImages from "./SliderData";
-import WindowContext from "../../context";
+import AppContext from "../../context";
 import * as imageConversion from 'image-conversion';
 
 const PreviousBtn = (props) => {
@@ -30,18 +29,17 @@ const NextBtn = (props) => {
 
 const ImageSlider = () => {
 
-    const {setLoading, setIsAnswer, setPhoto,setPhotoURL} = useContext(WindowContext)
-
+    const {setWindowLoading, setIsPhoto, setPhoto,setPhotoURL} = useContext(AppContext)
 
     async function sendImageHandler(index) {
-        setLoading(true);
+        setWindowLoading(true);
         let imgObject = await imageConversion.urltoImage(testImages[index]);
         let imgCanvas = await imageConversion.imagetoCanvas(imgObject);
         let imgFile = await imageConversion.canvastoFile(imgCanvas);
         setPhoto(imgFile);
         setPhotoURL(testImages[index])
-        setLoading(false);
-        setIsAnswer(true);
+        setWindowLoading(false);
+        setIsPhoto(true);
     }
 
     const settings = {

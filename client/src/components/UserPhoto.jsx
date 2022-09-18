@@ -1,10 +1,10 @@
 import React, {useContext, useEffect, useRef} from 'react';
-import WindowContext from "../context";
+import AppContext from "../context";
 import axios from "axios";
 
 const UserPhoto = () => {
 
-    const {answer, setAnswer, photoURL, photo} = useContext(WindowContext)
+    const {answer, setAnswer, photoURL, photo} = useContext(AppContext)
     const userPhoto = useRef();
 
     async function requestServer() {
@@ -17,18 +17,12 @@ const UserPhoto = () => {
             url: 'http://127.0.0.1:8000/api/predictions',
             data: formData,
         });
-        setAnswer(JSON.parse(response.data))
-        console.log(userPhoto.current.clientWidth, userPhoto.current.clientHeight);
+        await setAnswer(JSON.parse(response.data));
     }
 
     useEffect( () => {
         requestServer();
     },[])
-
-    // const resetAnswer = () => {
-    //     setIsAnswer(false);
-    //     setPhotoURL(null);
-    // }
 
     return (
         <div className="serverAnswer">
@@ -44,16 +38,7 @@ const UserPhoto = () => {
                         </div>
                         : null
                 }
-                {/*<div className="answer">*/}
-                {/*    <div className="answer__age">*/}
-                {/*        <span>Age: </span>{Math.round(answer['age'])}*/}
-                {/*    </div>*/}
-                {/*    <div className="answer__gender">*/}
-                {/*        <span>Gender: </span>{answer['gender']}*/}
-                {/*    </div>*/}
-                {/*</div>*/}
             </div>
-            {/*<ChangeableButton onClick = {resetAnswer} title={'Other photo'}/>*/}
         </div>
     );
 };
