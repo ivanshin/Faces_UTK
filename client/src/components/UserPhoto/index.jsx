@@ -1,6 +1,7 @@
 import React, {useContext, useEffect, useRef} from 'react';
 import AppContext from "../../context";
 import axios from "axios";
+import Skeleton from "./Skeleton";
 
 const UserPhoto = () => {
 
@@ -27,15 +28,16 @@ const UserPhoto = () => {
     return (
         <div className="serverAnswer">
             <div className={"serverAnswer__container"}>
-                <div className="image-container">
+                <div className={"image-container" + (!answer ? " unvisible" : '')}>
                     <img ref={userPhoto} src={photoURL} alt="UserPhoto"/>
                 </div>
                 {
                     answer
-                        && <div
+                        ? <div
                             className='b-box'
                             style={{width:`${answer['width']}px`, height:`${answer['height']}px`, left:`${answer['left']}px`,top:`${answer['top']}px`}}>
                         </div>
+                        :  <Skeleton />
                 }
             </div>
         </div>

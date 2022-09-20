@@ -1,14 +1,12 @@
 import React, {useState, useContext} from 'react';
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import {NoImage} from "../UI/Icons/NoImage";
-import CircleLoader from "react-spinners/CircleLoader";
 import AppContext from "../../context";
-import Skeleton from "./Skeleton";
 
 const SendingWindow = () => {
 
     const [isDrag, setDrag] = useState(false)
-    const {windowLoading, setWindowLoading, setIsPhoto, setPhotoURL, photoURL, setPhoto} = useContext(AppContext)
+    const {setWindowLoading, setIsPhoto, setPhotoURL, setPhoto} = useContext(AppContext)
 
     const fileReader = new FileReader()
     fileReader.onloadend = () => {
@@ -49,46 +47,44 @@ const SendingWindow = () => {
     return (
         <>
             {
-                windowLoading && !photoURL
-                ? <Skeleton />
-                : isDrag
-                    ? <div className="window window__drop">
-                        <div className={'window-content'}
-                             onDragStart={(e) => dragStartHandler(e)}
-                             onDragLeave={(e) => dragLeaveHandler(e)}
-                             onDragOver={(e) => dragStartHandler(e)}
-                             onDrop={e => onDropHandler(e)}
-                        >
-                            <div className="window-content__container">
-                                Release the photo to upload it
-                                <div className={'window__icon'}>
-                                    <AddAPhotoIcon style={{fontSize:'50px'}} />
-                                </div>
+                isDrag
+                ? <div className="window window__drop">
+                    <div className={'window-content'}
+                         onDragStart={(e) => dragStartHandler(e)}
+                         onDragLeave={(e) => dragLeaveHandler(e)}
+                         onDragOver={(e) => dragStartHandler(e)}
+                         onDrop={e => onDropHandler(e)}
+                    >
+                        <div className="window-content__container">
+                            Release the photo to upload it
+                            <div className={'window__icon'}>
+                                <AddAPhotoIcon style={{fontSize:'50px'}} />
                             </div>
                         </div>
                     </div>
-                    : <div className="window">
-                        <div
-                            className={'window-content'}
-                            onDragStart={(e) => dragStartHandler(e)}
-                            onDragLeave={(e) => dragLeaveHandler(e)}
-                            onDragOver={(e) => dragStartHandler(e)}
+                </div>
+                : <div className="window">
+                    <div
+                        className={'window-content'}
+                        onDragStart={(e) => dragStartHandler(e)}
+                        onDragLeave={(e) => dragLeaveHandler(e)}
+                        onDragOver={(e) => dragStartHandler(e)}
+                    >
+                        <form
+                            className="window-content__form"
+                            onChange={loadingByClick}
                         >
-                            <form
-                                className="window-content__form"
-                                onChange={loadingByClick}
-                            >
-                                <label htmlFor="input-file">
-                                    <div className={'window-content__container'}>
-                                        Drag and drop the photo to&nbsp;upload or&nbsp;click on&nbsp;the window to&nbsp;select a&nbsp;photo
-                                        <div className = {'window__icon'}>
-                                            <NoImage />
-                                        </div>
+                            <label htmlFor="input-file">
+                                <div className={'window-content__container'}>
+                                    Drag and drop the photo to&nbsp;upload or&nbsp;click on&nbsp;the window to&nbsp;select a&nbsp;photo
+                                    <div className = {'window__icon'}>
+                                        <NoImage />
                                     </div>
-                                </label>
-                                <input id={"input-file"} type="file" className="type"/>
-                            </form>
-                        </div>
+                                </div>
+                            </label>
+                            <input id={"input-file"} type="file" className="type"/>
+                        </form>
+                    </div>
                 </div>
             }
         </>
