@@ -1,13 +1,12 @@
 import React, {useState, useContext} from 'react';
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
-import {NoImage} from "./UI/Icons/NoImage";
-import CircleLoader from "react-spinners/CircleLoader";
-import AppContext from "../context";
+import {NoImage} from "../UI/Icons/NoImage";
+import AppContext from "../../context";
 
 const SendingWindow = () => {
 
     const [isDrag, setDrag] = useState(false)
-    const {windowLoading, setWindowLoading, setIsPhoto, setPhotoURL, photoURL, setPhoto} = useContext(AppContext)
+    const {setWindowLoading, setIsPhoto, setPhotoURL, setPhoto} = useContext(AppContext)
 
     const fileReader = new FileReader()
     fileReader.onloadend = () => {
@@ -48,16 +47,7 @@ const SendingWindow = () => {
     return (
         <>
             {
-                windowLoading && !photoURL
-                ? <div className="window">
-                        <div className={'window-content'}>
-                            <div className="window-content__container window-loader">
-                                <CircleLoader className={'loader-animation'} color={'#FFF'} loading={windowLoading} size={50} />
-                                <span>Loading...</span>
-                            </div>
-                        </div>
-                    </div>
-                : isDrag
+                isDrag
                 ? <div className="window window__drop">
                     <div className={'window-content'}
                          onDragStart={(e) => dragStartHandler(e)}

@@ -9,7 +9,7 @@ import ServerAnswer from "./components/ServerAnswer";
 
 function App() {
 
-    const {photoURL, isPhoto, answer} = useContext(AppContext)
+    const {photoURL, isPhoto} = useContext(AppContext)
 
   return (
     <div className={"App"}>

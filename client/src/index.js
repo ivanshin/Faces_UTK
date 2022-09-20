@@ -10,7 +10,7 @@ function Main () {
     const [photoURL, setPhotoURL] = useState(false);
     const [photo, setPhoto] = useState(false);
     const [isPhoto, setIsPhoto] = useState(false);
-    const [windowLoading, setWindowLoading] = useState(false);
+    const [windowLoading, setWindowLoading] = useState(true);
 
     return (
             <WindowContext.Provider value={{windowLoading, setWindowLoading, isPhoto, setIsPhoto, isAnswer, setIsAnswer, answer, setAnswer, photoURL, setPhotoURL, photo, setPhoto}}>
