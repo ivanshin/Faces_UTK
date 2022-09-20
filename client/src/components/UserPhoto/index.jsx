@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useRef} from 'react';
-import AppContext from "../context";
+import AppContext from "../../context";
 import axios from "axios";
 
 const UserPhoto = () => {
@@ -17,7 +17,7 @@ const UserPhoto = () => {
             url: 'http://127.0.0.1:8000/api/predictions',
             data: formData,
         });
-        await setAnswer(JSON.parse(response.data));
+        setAnswer(JSON.parse(response.data));
     }
 
     useEffect( () => {
@@ -32,11 +32,10 @@ const UserPhoto = () => {
                 </div>
                 {
                     answer
-                        ? <div
+                        && <div
                             className='b-box'
                             style={{width:`${answer['width']}px`, height:`${answer['height']}px`, left:`${answer['left']}px`,top:`${answer['top']}px`}}>
                         </div>
-                        : null
                 }
             </div>
         </div>

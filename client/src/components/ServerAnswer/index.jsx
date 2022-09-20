@@ -34,7 +34,6 @@ const ServerAnswer = () => {
                         <span className={classes.loading}>Loading...</span>
                     </>
             }
-
         </div>
     );
 };
