@@ -82,7 +82,9 @@ async def make_predictions_pipeline(request, from_slider= False):
         client_width = int(file['width'])
         client_height = int(file['height'])
 
-    image =  image.resize((client_width, client_height))
+    if client_height > 0:
+        image =  image.resize((client_width, client_height))
+        
     image = np.array(image)
     gray_img = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
     faces = face_cascade.detectMultiScale(gray_img, 1.1, 4)
