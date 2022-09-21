@@ -1,4 +1,4 @@
-.serverAnswer {
+.userPhoto {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -7,40 +7,25 @@
   font-size:18px;
 }
 
-.serverAnswer__container {
+.container {
   position: relative;
 
-  & img {
+  img {
     border-radius: 5px;
     height:100%;
   }
 }
 
-.answer {
-
-  & span {
-    font-weight: 500;
-  }
-}
-
-.image-container {
+.imageContainer {
   height:400px;
 }
 
-.image-container.unvisible {
+.unvisibleImage {
   opacity: 0;
   position: absolute;
 }
 
-
-//.b-box {
-//  border:1px solid red;
-//  position: absolute;
-//  border-radius: 10px;
-//  overflow: hidden;
-//}
-
-.b-box {
+.bBox {
   position: absolute;
   border: 3px solid;
   border-image: linear-gradient(45deg, gold, deeppink) 1;

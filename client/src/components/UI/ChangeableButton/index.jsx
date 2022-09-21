@@ -1,11 +1,13 @@
 import React from 'react';
+import classes from './index.module.scss'
+import classNames from "classnames";
 
 const ChangeableButton = (props) => {
 
     return (
         <button
             onClick={props.onClick}
-            className="custom-btn changeable"
+            className={classNames(classes.customBtn, classes.changeable)}
         >
             <span>Click!</span>
             <span>{props.title}</span>
