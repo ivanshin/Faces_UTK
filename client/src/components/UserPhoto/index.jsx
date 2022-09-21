@@ -7,7 +7,7 @@ import classNames from "classnames"
 
 const UserPhoto = () => {
 
-    const {answer, setAnswer, photoURL, photo} = useContext(AppContext)
+    const {invalidAnswer, setInvalidAnswer, answer, setAnswer, photoURL, photo} = useContext(AppContext)
     const userPhoto = useRef();
 
     async function requestServer() {
@@ -23,6 +23,7 @@ const UserPhoto = () => {
         console.log(response.data);
         if(response.data === 'NO FACE DETECTED') {
             console.log('error')
+            setInvalidAnswer(true);
         } else {
             setAnswer(JSON.parse(response.data));
         }
@@ -35,7 +36,7 @@ const UserPhoto = () => {
     return (
         <div className={classes.userPhoto}>
             <div className={classes.container}>
-                <div className={classNames(classes.imageContainer, !answer ? classes.unvisibleImage : '')}>
+                <div className={classNames(classes.imageContainer, !answer && !invalidAnswer && classes.unvisibleImage)}>
                     <img ref={userPhoto} src={photoURL} alt="UserPhoto"/>
                 </div>
                 {
@@ -44,7 +45,7 @@ const UserPhoto = () => {
                             className={classes.bBox}
                             style={{width:`${answer['width']}px`, height:`${answer['height']}px`, left:`${answer['left']}px`,top:`${answer['top']}px`}}>
                         </div>
-                        :  <Skeleton />
+                        : !invalidAnswer && <Skeleton />
                 }
             </div>
         </div>
