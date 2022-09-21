@@ -29,16 +29,14 @@ const NextBtn = (props) => {
 
 const ImageSlider = () => {
 
-    const {setWindowLoading, setIsPhoto, setPhoto,setPhotoURL} = useContext(AppContext)
+    const {setIsPhoto, setPhoto,setPhotoURL} = useContext(AppContext)
 
     async function sendImageHandler(index) {
-        setWindowLoading(true);
         let imgObject = await imageConversion.urltoImage(testImages[index]);
         let imgCanvas = await imageConversion.imagetoCanvas(imgObject);
         let imgFile = await imageConversion.canvastoFile(imgCanvas);
         setPhoto(imgFile);
         setPhotoURL(testImages[index])
-        setWindowLoading(false);
         setIsPhoto(true);
     }
 
