@@ -2,6 +2,8 @@ import React, {useState, useContext} from 'react';
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import {NoImage} from "../UI/Icons/NoImage";
 import AppContext from "../../context";
+import classes from "./index.module.scss"
+import classNames from "classnames";
 
 const SendingWindow = () => {
 
@@ -48,36 +50,36 @@ const SendingWindow = () => {
         <>
             {
                 isDrag
-                ? <div className="window window__drop">
-                    <div className={'window-content'}
+                ? <div className={classNames(classes.window, classes.drop)}>
+                    <div className={classes.container}
                          onDragStart={(e) => dragStartHandler(e)}
                          onDragLeave={(e) => dragLeaveHandler(e)}
                          onDragOver={(e) => dragStartHandler(e)}
                          onDrop={e => onDropHandler(e)}
                     >
-                        <div className="window-content__container">
+                        <div className={classes.content}>
                             Release the photo to upload it
-                            <div className={'window__icon'}>
+                            <div className={classes.icon}>
                                 <AddAPhotoIcon style={{fontSize:'50px'}} />
                             </div>
                         </div>
                     </div>
                 </div>
-                : <div className="window">
+                : <div className={classes.window}>
                     <div
-                        className={'window-content'}
+                        className={classes.container}
                         onDragStart={(e) => dragStartHandler(e)}
                         onDragLeave={(e) => dragLeaveHandler(e)}
                         onDragOver={(e) => dragStartHandler(e)}
                     >
                         <form
-                            className="window-content__form"
+                            className={classes.form}
                             onChange={loadingByClick}
                         >
                             <label htmlFor="input-file">
-                                <div className={'window-content__container'}>
+                                <div className={classes.content}>
                                     Drag and drop the photo to&nbsp;upload or&nbsp;click on&nbsp;the window to&nbsp;select a&nbsp;photo
-                                    <div className = {'window__icon'}>
+                                    <div className = {classes.icon}>
                                         <NoImage />
                                     </div>
                                 </div>

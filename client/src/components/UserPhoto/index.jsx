@@ -2,6 +2,8 @@ import React, {useContext, useEffect, useRef} from 'react';
 import AppContext from "../../context";
 import axios from "axios";
 import Skeleton from "./Skeleton";
+import classes from "./index.module.scss"
+import classNames from "classnames"
 
 const UserPhoto = () => {
 
@@ -18,6 +20,7 @@ const UserPhoto = () => {
             url: 'http://127.0.0.1:8000/api/predictions',
             data: formData,
         });
+        console.log(response.data);
         setAnswer(JSON.parse(response.data));
     }
 
@@ -26,15 +29,15 @@ const UserPhoto = () => {
     },[])
 
     return (
-        <div className="serverAnswer">
-            <div className={"serverAnswer__container"}>
-                <div className={"image-container" + (!answer ? " unvisible" : '')}>
+        <div className={classes.userPhoto}>
+            <div className={classes.container}>
+                <div className={classNames(classes.imageContainer, !answer ? classes.unvisibleImage : '')}>
                     <img ref={userPhoto} src={photoURL} alt="UserPhoto"/>
                 </div>
                 {
                     answer
                         ? <div
-                            className='b-box'
+                            className={classes.bBox}
                             style={{width:`${answer['width']}px`, height:`${answer['height']}px`, left:`${answer['left']}px`,top:`${answer['top']}px`}}>
                         </div>
                         :  <Skeleton />
