@@ -1,15 +1,15 @@
+import io
 import json
 import os
+
+import cv2
+import numpy as np
+import tensorflow as tf
+import yaml
 from fastapi import FastAPI, Request
+from fastapi.middleware.cors import CORSMiddleware
 from matplotlib import pyplot as plt
 from PIL import Image
-from fastapi.middleware.cors import CORSMiddleware
-
-import tensorflow as tf
-import numpy as np
-import yaml
-import io
-import cv2
 
 
 # read config file
@@ -82,7 +82,7 @@ async def make_predictions_pipeline(request, from_slider= False):
         client_width = int(file['width'])
         client_height = int(file['height'])
 
-    if client_height > 0:
+    if client_height > 0 and client_width > 0:
         image =  image.resize((client_width, client_height))
         
     image = np.array(image)
