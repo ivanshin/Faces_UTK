@@ -21,7 +21,11 @@ const UserPhoto = () => {
             data: formData,
         });
         console.log(response.data);
-        setAnswer(JSON.parse(response.data));
+        if(response.data === 'NO FACE DETECTED') {
+            console.log('error')
+        } else {
+            setAnswer(JSON.parse(response.data));
+        }
     }
 
     useEffect( () => {

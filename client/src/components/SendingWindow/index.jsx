@@ -8,7 +8,7 @@ import classNames from "classnames";
 const SendingWindow = () => {
 
     const [isDrag, setDrag] = useState(false)
-    const {setWindowLoading, setIsPhoto, setPhotoURL, setPhoto} = useContext(AppContext)
+    const {setIsPhoto, setPhotoURL, setPhoto} = useContext(AppContext)
 
     const fileReader = new FileReader()
     fileReader.onloadend = () => {
@@ -26,23 +26,19 @@ const SendingWindow = () => {
     }
 
     async function onDropHandler(e) {
-        setWindowLoading(true);
         e.preventDefault();
         let images = [...e.dataTransfer.files][0];
         setPhoto(images);
         fileReader.readAsDataURL(images);
         setDrag(false);
-        setWindowLoading(false);
         setIsPhoto(true);
     }
 
     const loadingByClick = async (e) => {
-        setWindowLoading(true);
         e.preventDefault();
         let images = e.target.files[0];
         setPhoto(images);
         fileReader.readAsDataURL(images);
-        setWindowLoading(false);
         setIsPhoto(true);
     }
 
