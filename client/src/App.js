@@ -1,11 +1,13 @@
 import React, {useContext} from "react";
 import './scss/app.scss';
+import AppContext from "./context";
+import Normolize from 'react-normalize'
+
+import ServerAnswer from "./components/ServerAnswer";
 import SendingWindow from "./components/SendingWindow";
 import UserPhoto from "./components/UserPhoto";
 import ImageSlider from "./components/ImageSlider/ImageSlider";
-import AppContext from "./context";
-import Normolize from 'react-normalize'
-import ServerAnswer from "./components/ServerAnswer";
+import Greeting from "./components/Greeting";
 
 function App() {
 
@@ -14,6 +16,9 @@ function App() {
   return (
     <div className={"App"}>
         <Normolize />
+        {/*<div className="greeting">*/}
+        {/*    <Greeting />*/}
+        {/*</div>*/}
         <div className="wrapper">
             <div className="container">
                 <main>
