@@ -1,5 +1,9 @@
 @import "./variables.scss";
 
+html, body {
+  overflow-x:hidden;
+}
+
 .wrapper {
   width: calc(100vw - 100px);
   height:100%;
@@ -19,4 +23,9 @@
 
 .slider-answer {
   margin-bottom: 100px;
+}
+
+.greeting {
+  background-color: $backgroundImg-color;
+  width:100%;
 }

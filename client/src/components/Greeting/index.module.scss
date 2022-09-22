@@ -1,14 +1,19 @@
 .greeting {
   background-image: url("../../assets/images/greeting-background.jpg");
-  //background-size: cover;
   background-repeat: no-repeat;
-  //width:100%;
-  //padding-top:200px;
-  //padding-bottom: 300px;
+  background-size: 100%;
+  max-width:1000px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  height:600px;
+  font-size:18px;
 }
 
 .text {
+  text-align: center;
+  width: 90%;
   color:black;
   padding-top:120px;
-  padding-bottom: 400px;
+  line-height: 25px;
 }

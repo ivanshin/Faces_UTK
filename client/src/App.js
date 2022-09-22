@@ -16,12 +16,12 @@ function App() {
   return (
     <div className={"App"}>
         <Normolize />
-        {/*<div className="greeting">*/}
-        {/*    <Greeting />*/}
-        {/*</div>*/}
+        <div className="greeting">
+            <Greeting />
+        </div>
         <div className="wrapper">
-            <div className="container">
-                <main>
+            <main>
+                <div className="container">
                     <div className="window-image">
                         {isPhoto && photoURL
                             ? <UserPhoto />
@@ -35,8 +35,8 @@ function App() {
                             : <ImageSlider />
                         }
                     </div>
-                </main>
-            </div>
+                </div>
+            </main>
         </div>
     </div>
   );
