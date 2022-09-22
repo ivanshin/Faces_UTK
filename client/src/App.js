@@ -8,6 +8,7 @@ import SendingWindow from "./components/SendingWindow";
 import UserPhoto from "./components/UserPhoto";
 import ImageSlider from "./components/ImageSlider/ImageSlider";
 import Greeting from "./components/Greeting";
+import HowItWorks from "./components/HowItWorks"
 
 function App() {
 
@@ -34,6 +35,9 @@ function App() {
                             ? <ServerAnswer />
                             : <ImageSlider />
                         }
+                    </div>
+                    <div className="works">
+                        <HowItWorks />
                     </div>
                 </div>
             </main>
