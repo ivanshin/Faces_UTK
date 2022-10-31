@@ -21,9 +21,12 @@ export const statesSlice = createSlice({
         setInvalidAnswer: (state, action) => {
             state.invalidAnswer = action.payload
         },
+        setPhoto: (state, action) => {
+            state.photo = action.payload
+        },
     },
 })
 
-export const { setAnswer, setPhotoURL, setInvalidAnswer } = statesSlice.actions
+export const { setAnswer, setPhotoURL, setInvalidAnswer, setPhoto } = statesSlice.actions
 
 export default statesSlice.reducer

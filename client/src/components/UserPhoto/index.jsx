@@ -11,9 +11,10 @@ const UserPhoto = () => {
 
     const dispatch = useDispatch()
     const answer = useSelector((state) => state.states.answer)
+    const photo = useSelector((state) => state.states.photo)
     const invalidAnswer = useSelector((state) => state.states.invalidAnswer)
 
-    const { photoURL, photo } = useContext(AppContext)
+    const { photoURL } = useContext(AppContext)
     const userPhoto = useRef();
 
     async function requestServer() {
