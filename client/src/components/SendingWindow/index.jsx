@@ -1,4 +1,6 @@
 import React, {useState, useContext} from 'react';
+import { useSelector, useDispatch } from 'react-redux'
+import { setAnswer } from '../../redux/slices/statesSlice'
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import {NoImage} from "../UI/Icons/NoImage";
 import AppContext from "../../context";

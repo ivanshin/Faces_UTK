@@ -1,21 +1,26 @@
 import React from 'react';
+import classNames from "classnames";
+import { useSelector, useDispatch } from 'react-redux'
+import { setAnswer, setInvalidAnswer } from '../../redux/slices/statesSlice'
+
 import classes from './index.module.scss'
 import AppContext from "../../context";
 import ChangeableButton from "../UI/ChangeableButton";
 import CircleLoader from "react-spinners/CircleLoader";
-import classNames from "classnames";
 
 const ServerAnswer = () => {
+    const answer = useSelector((state) => state.states.answer)
+    const invalidAnswer = useSelector((state) => state.states.invalidAnswer)
+    const dispatch = useDispatch()
 
-    const {answer, setIsPhoto, setPhoto, setPhotoURL, setAnswer, setIsAnswer, invalidAnswer, setInvalidAnswer} = React.useContext(AppContext)
+    const {setIsPhoto, setPhoto, setPhotoURL} = React.useContext(AppContext)
 
     const resetAnswer = () => {
-        setInvalidAnswer(false);
+        dispatch(setInvalidAnswer(false));
         setIsPhoto(false);
         setPhoto(false);
         setPhotoURL(false);
-        setAnswer(false);
-        setIsAnswer(false);
+        dispatch(setAnswer(false));
     }
 
     return (

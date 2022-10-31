@@ -4,10 +4,16 @@ import axios from "axios";
 import Skeleton from "./Skeleton";
 import classes from "./index.module.scss"
 import classNames from "classnames"
+import { useSelector, useDispatch } from 'react-redux'
+import { setAnswer, setInvalidAnswer } from '../../redux/slices/statesSlice'
 
 const UserPhoto = () => {
 
-    const {invalidAnswer, setInvalidAnswer, answer, setAnswer, photoURL, photo} = useContext(AppContext)
+    const dispatch = useDispatch()
+    const answer = useSelector((state) => state.states.answer)
+    const invalidAnswer = useSelector((state) => state.states.invalidAnswer)
+
+    const { photoURL, photo } = useContext(AppContext)
     const userPhoto = useRef();
 
     async function requestServer() {
@@ -23,9 +29,9 @@ const UserPhoto = () => {
         console.log(response.data);
         if(response.data === 'NO FACE DETECTED') {
             console.log('error')
-            setInvalidAnswer(true);
+            dispatch(setInvalidAnswer(true));
         } else {
-            setAnswer(JSON.parse(response.data));
+            dispatch(setAnswer(JSON.parse(response.data)));
         }
     }
 
