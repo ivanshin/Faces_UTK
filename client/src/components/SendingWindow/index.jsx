@@ -5,16 +5,18 @@ import {NoImage} from "../UI/Icons/NoImage";
 import AppContext from "../../context";
 import classes from "./index.module.scss"
 import classNames from "classnames";
+import { setPhotoURL } from "../../redux/slices/statesSlice";
 
 const SendingWindow = () => {
 
     const dispatch = useDispatch()
+
     const [isDrag, setDrag] = useState(false)
-    const {setIsPhoto, setPhotoURL } = useContext(AppContext)
+    const { setIsPhoto } = useContext(AppContext)
 
     const fileReader = new FileReader()
     fileReader.onloadend = () => {
-        setPhotoURL(fileReader.result);
+        dispatch(setPhotoURL(fileReader.result));
     }
 
     function dragStartHandler(e) {

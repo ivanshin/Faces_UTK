@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from "classnames";
 import { useSelector, useDispatch } from 'react-redux'
-import { setAnswer, setInvalidAnswer } from '../../redux/slices/statesSlice'
+import { setAnswer, setInvalidAnswer,  setPhotoURL } from '../../redux/slices/statesSlice'
 
 import classes from './index.module.scss'
 import AppContext from "../../context";
@@ -11,14 +11,15 @@ import CircleLoader from "react-spinners/CircleLoader";
 const ServerAnswer = () => {
     const answer = useSelector((state) => state.states.answer)
     const invalidAnswer = useSelector((state) => state.states.invalidAnswer)
+
     const dispatch = useDispatch()
 
-    const {setIsPhoto, setPhotoURL} = React.useContext(AppContext)
+    const {setIsPhoto} = React.useContext(AppContext)
 
     const resetAnswer = () => {
         dispatch(setInvalidAnswer(false));
         setIsPhoto(false);
-        setPhotoURL(false);
+        dispatch(setPhotoURL(false));
         dispatch(setAnswer(false));
     }
 

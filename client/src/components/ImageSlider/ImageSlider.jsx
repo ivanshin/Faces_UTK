@@ -7,6 +7,7 @@ import {ArrowBackIos, ArrowForwardIos} from "@material-ui/icons";
 import testImages from "./SliderData";
 import AppContext from "../../context";
 import { useDispatch } from 'react-redux'
+import { setPhotoURL } from "../../redux/slices/statesSlice";
 
 const PreviousBtn = (props) => {
     const {className, onClick} = props
@@ -29,11 +30,11 @@ const NextBtn = (props) => {
 
 const ImageSlider = () => {
 
-    const {setIsPhoto, setPhotoURL} = useContext(AppContext)
+    const {setIsPhoto} = useContext(AppContext)
     const dispatch = useDispatch()
 
     async function sendImageHandler(index) {
-        setPhotoURL(testImages[index])
+        dispatch(setPhotoURL(testImages[index]))
         setIsPhoto(true);
     }
 

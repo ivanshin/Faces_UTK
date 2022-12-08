@@ -7,12 +7,11 @@ import { store } from './redux/store'
 import { Provider } from 'react-redux'
 
 function Main () {
-    const [photoURL, setPhotoURL] = useState(false);
     const [isPhoto, setIsPhoto] = useState(false);
 
     return (
         <Provider store={store}>
-            <WindowContext.Provider value={{isPhoto, setIsPhoto, photoURL, setPhotoURL}}>
+            <WindowContext.Provider value={{isPhoto, setIsPhoto}}>
                 <App />
             </WindowContext.Provider>
         </Provider>

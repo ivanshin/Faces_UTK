@@ -1,5 +1,4 @@
-import React, {useContext, useEffect, useRef} from 'react';
-import AppContext from "../../context";
+import React, { useEffect, useRef } from 'react';
 import axios from "axios";
 import Skeleton from "./Skeleton";
 import classes from "./index.module.scss"
@@ -13,8 +12,8 @@ const UserPhoto = () => {
     const dispatch = useDispatch()
     const answer = useSelector((state) => state.states.answer)
     const invalidAnswer = useSelector((state) => state.states.invalidAnswer)
+    const photoURL = useSelector((state) => state.states.photoURL)
 
-    const { photoURL } = useContext(AppContext)
     const userPhoto = useRef();
 
     async function requestServer() {
@@ -31,7 +30,6 @@ const UserPhoto = () => {
             url: 'http://127.0.0.1:8000/api/predictions',
             data: formData,
         });
-        console.log(response.data);
         if(response.data === 'NO FACE DETECTED') {
             console.log('error')
             dispatch(setInvalidAnswer(true));
