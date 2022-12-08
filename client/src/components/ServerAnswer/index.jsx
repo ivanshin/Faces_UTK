@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from "classnames";
 import { useSelector, useDispatch } from 'react-redux'
-import { setAnswer, setInvalidAnswer, setPhoto } from '../../redux/slices/statesSlice'
+import { setAnswer, setInvalidAnswer } from '../../redux/slices/statesSlice'
 
 import classes from './index.module.scss'
 import AppContext from "../../context";
@@ -18,7 +18,6 @@ const ServerAnswer = () => {
     const resetAnswer = () => {
         dispatch(setInvalidAnswer(false));
         setIsPhoto(false);
-        dispatch(setPhoto(false));
         setPhotoURL(false);
         dispatch(setAnswer(false));
     }

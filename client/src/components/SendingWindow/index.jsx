@@ -1,6 +1,5 @@
 import React, {useState, useContext} from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { setPhoto } from '../../redux/slices/statesSlice'
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import {NoImage} from "../UI/Icons/NoImage";
 import AppContext from "../../context";
@@ -31,7 +30,6 @@ const SendingWindow = () => {
     async function onDropHandler(e) {
         e.preventDefault();
         let images = [...e.dataTransfer.files][0];
-        dispatch(setPhoto(images));
         fileReader.readAsDataURL(images);
         setDrag(false);
         setIsPhoto(true);
@@ -40,7 +38,6 @@ const SendingWindow = () => {
     const loadingByClick = async (e) => {
         e.preventDefault();
         let images = e.target.files[0];
-        dispatch(setPhoto(images));
         fileReader.readAsDataURL(images);
         setIsPhoto(true);
     }

@@ -6,9 +6,7 @@ import "./ImageSlider.scss"
 import {ArrowBackIos, ArrowForwardIos} from "@material-ui/icons";
 import testImages from "./SliderData";
 import AppContext from "../../context";
-import * as imageConversion from 'image-conversion';
 import { useDispatch } from 'react-redux'
-import { setPhoto } from '../../redux/slices/statesSlice'
 
 const PreviousBtn = (props) => {
     const {className, onClick} = props
@@ -35,10 +33,6 @@ const ImageSlider = () => {
     const dispatch = useDispatch()
 
     async function sendImageHandler(index) {
-        let imgObject = await imageConversion.urltoImage(testImages[index]);
-        let imgCanvas = await imageConversion.imagetoCanvas(imgObject);
-        let imgFile = await imageConversion.canvastoFile(imgCanvas);
-        dispatch(setPhoto(imgFile));
         setPhotoURL(testImages[index])
         setIsPhoto(true);
     }
