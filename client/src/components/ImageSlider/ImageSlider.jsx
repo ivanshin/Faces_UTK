@@ -1,12 +1,12 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import Slider from "react-slick"
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import "./ImageSlider.scss"
 import {ArrowBackIos, ArrowForwardIos} from "@material-ui/icons";
 import testImages from "./SliderData";
-import AppContext from "../../context";
-import * as imageConversion from 'image-conversion';
+import { useDispatch } from 'react-redux'
+import { setPhotoURL, setIsPhoto } from "../../redux/slices/statesSlice";
 
 const PreviousBtn = (props) => {
     const {className, onClick} = props
@@ -29,15 +29,11 @@ const NextBtn = (props) => {
 
 const ImageSlider = () => {
 
-    const {setIsPhoto, setPhoto,setPhotoURL} = useContext(AppContext)
+    const dispatch = useDispatch()
 
     async function sendImageHandler(index) {
-        let imgObject = await imageConversion.urltoImage(testImages[index]);
-        let imgCanvas = await imageConversion.imagetoCanvas(imgObject);
-        let imgFile = await imageConversion.canvastoFile(imgCanvas);
-        setPhoto(imgFile);
-        setPhotoURL(testImages[index])
-        setIsPhoto(true);
+        dispatch(setPhotoURL(testImages[index]))
+        dispatch(setIsPhoto(true));
     }
 
     const settings = {

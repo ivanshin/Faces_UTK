@@ -1,18 +1,28 @@
-import React, {useContext, useEffect, useRef} from 'react';
-import AppContext from "../../context";
+import React, { useEffect, useRef } from 'react';
 import axios from "axios";
 import Skeleton from "./Skeleton";
 import classes from "./index.module.scss"
 import classNames from "classnames"
+import { useSelector, useDispatch } from 'react-redux'
+import { setAnswer, setInvalidAnswer } from '../../redux/slices/statesSlice'
+import * as imageConversion from "image-conversion";
 
 const UserPhoto = () => {
 
-    const {invalidAnswer, setInvalidAnswer, answer, setAnswer, photoURL, photo} = useContext(AppContext)
+    const dispatch = useDispatch()
+    const answer = useSelector((state) => state.states.answer)
+    const invalidAnswer = useSelector((state) => state.states.invalidAnswer)
+    const photoURL = useSelector((state) => state.states.photoURL)
+
     const userPhoto = useRef();
 
     async function requestServer() {
+        let imgObject = await imageConversion.urltoImage(photoURL);
+        let imgCanvas = await imageConversion.imagetoCanvas(imgObject);
+        let imgFile = await imageConversion.canvastoFile(imgCanvas);
+
         const formData = new FormData();
-        formData.append('img', photo);
+        formData.append('img', imgFile);
         formData.append('width',userPhoto.current.clientWidth);
         formData.append('height',userPhoto.current.clientHeight);
         const response = await axios({
@@ -20,12 +30,11 @@ const UserPhoto = () => {
             url: 'http://127.0.0.1:8000/api/predictions',
             data: formData,
         });
-        console.log(response.data);
         if(response.data === 'NO FACE DETECTED') {
             console.log('error')
-            setInvalidAnswer(true);
+            dispatch(setInvalidAnswer(true));
         } else {
-            setAnswer(JSON.parse(response.data));
+            dispatch(setAnswer(JSON.parse(response.data)));
         }
     }
 
