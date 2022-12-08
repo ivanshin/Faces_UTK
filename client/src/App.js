@@ -1,6 +1,5 @@
-import React, {useContext} from "react";
+import React from "react";
 import './scss/app.scss';
-import AppContext from "./context";
 import Normolize from 'react-normalize'
 import {useSelector} from "react-redux";
 
@@ -14,7 +13,7 @@ import HowItWorks from "./components/HowItWorks"
 function App() {
 
     const photoURL = useSelector((state) => state.states.photoURL)
-    const {isPhoto} = useContext(AppContext)
+    const isPhoto = useSelector((state) => state.states.isPhoto)
 
   return (
     <div className={"App"}>

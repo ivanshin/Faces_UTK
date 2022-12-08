@@ -4,7 +4,7 @@ const initialState = {
     answer: false,
     photoURL: false,
     isPhoto: false,
-    invalidAnswer: false,
+    invalidAnswer: false
 }
 
 export const statesSlice = createSlice({
@@ -20,9 +20,12 @@ export const statesSlice = createSlice({
         setInvalidAnswer: (state, action) => {
             state.invalidAnswer = action.payload
         },
+        setIsPhoto: (state, action) => {
+            state.isPhoto = action.payload
+        },
     },
 })
 
-export const { setAnswer, setPhotoURL, setInvalidAnswer } = statesSlice.actions
+export const { setAnswer, setPhotoURL, setInvalidAnswer, setIsPhoto } = statesSlice.actions
 
 export default statesSlice.reducer

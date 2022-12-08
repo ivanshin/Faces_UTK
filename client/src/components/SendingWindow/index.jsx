@@ -1,18 +1,16 @@
-import React, {useState, useContext} from 'react';
-import { useSelector, useDispatch } from 'react-redux'
+import React, {useState} from 'react';
+import { useDispatch } from 'react-redux'
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import {NoImage} from "../UI/Icons/NoImage";
-import AppContext from "../../context";
 import classes from "./index.module.scss"
 import classNames from "classnames";
-import { setPhotoURL } from "../../redux/slices/statesSlice";
+import { setPhotoURL, setIsPhoto } from "../../redux/slices/statesSlice";
 
 const SendingWindow = () => {
 
     const dispatch = useDispatch()
 
     const [isDrag, setDrag] = useState(false)
-    const { setIsPhoto } = useContext(AppContext)
 
     const fileReader = new FileReader()
     fileReader.onloadend = () => {
@@ -34,14 +32,14 @@ const SendingWindow = () => {
         let images = [...e.dataTransfer.files][0];
         fileReader.readAsDataURL(images);
         setDrag(false);
-        setIsPhoto(true);
+        dispatch(setIsPhoto(true));
     }
 
     const loadingByClick = async (e) => {
         e.preventDefault();
         let images = e.target.files[0];
         fileReader.readAsDataURL(images);
-        setIsPhoto(true);
+        dispatch(setIsPhoto(true));
     }
 
     return (
